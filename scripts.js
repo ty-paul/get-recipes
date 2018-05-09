@@ -12,6 +12,26 @@ getRecipes.getValue = function() {
         });
 };
 
+//Get Data Inputted from user
+//search API for food items containing those and return list of them
+//display recipe title ingredients image and rating + url to actual website
+//users can sort by cooking time/rating/dietary restrictions
+
+
+$.ajax({
+    url: 'http://api.yummly.com/v1/api/recipes?_app_id=dfbe7dff&_app_key=2bccb2cb18b4186352c9c884a2cff49a',
+    dataType: 'json',
+    data: {
+        method: 'GET',
+        source: 'sourceRecipeUrl'
+    }
+        })
+        //promise
+        .then((res) => {
+            console.log(res)
+          });
+
+
 //Create an init method
 
 getRecipes.init = function() {

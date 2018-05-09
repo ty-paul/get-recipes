@@ -13,13 +13,7 @@ getRecipes.getValue = function(allIngredients) {
         e.preventDefault();        
         const oneIngredient = $('input[name=myIngredients]').val();
         allIngredients.push(oneIngredient);
-        // if (allIngredients === undefined) {
-        //     allIngredients = oneIngredient;
-        // }
-        // else {
-        //     allIngredients = `${allIngredients}, ${oneIngredient}`;
-        // }
-        // $('ul').append(`<li>${addIngredient}</li>`);
+        $('ul').append(`<li>${oneIngredient}</li>`);
         console.log(allIngredients)
         getRecipes.recipesByIngredients(allIngredients);
     });
@@ -27,6 +21,12 @@ getRecipes.getValue = function(allIngredients) {
 };
 
 //Remove item if user requests
+getRecipes.removeItem = function(allIngredients){
+    $('ul').on('click', 'li', function(e){
+        e.stopPropagation();
+        $('li').parent().remove();
+    });
+}
 
 
 //search API for food items containing those and return list of them

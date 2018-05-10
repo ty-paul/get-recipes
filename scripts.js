@@ -45,10 +45,38 @@ getRecipes.recipesByIngredients = function(ingredients) {
     })
     //promise
     .then((res) => {
+        const mealsReturned = res.mealsReturned
         console.log(res)
+        const mealInfoArray = getRecipes.mealInfo(res);
+        console.log(`meal info array: `, mealInfoArray);
+        
         });
 
 };
+
+//using split function, split string(url) at the equals sign, only keep index 0(first part of array). This replaces default small image with large image
+getRecipes.trimImgUrl = function(imgUrl){
+    return imgUrl.split('=')[0]
+    //splits string at = sign and you keep the index of 0 
+}
+
+getRecipes.mealInfo = function(apiResult){
+    const foodItems = apiResult.matches;
+    // console.log(foodItems);
+    
+//returns an array of objects, each object contains the data you need
+    const foodDataArray = foodItems.map(item => {
+        const ingredients = item.ingredients;
+        const title = item.id;
+        let mealImageUrl = item.imageUrlsBySize['90'];
+        mealImageUrl = getRecipes.trimImgUrl(mealImageUrl);
+        const itemInfoObject = {title, ingredients, mealImageUrl};
+        return itemInfoObject;
+        
+    });//end of map
+    return foodDataArray;
+}
+
 
 
 //Create an init method

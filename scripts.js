@@ -7,7 +7,6 @@ const allIngredients = [];
 //Get Data Inputted from user - Ty 1hr
 
 
-
 getRecipes.getValue = function(allIngredients) {
     $('input[type=submit]').on('click', function(e){
         e.preventDefault();        

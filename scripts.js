@@ -64,8 +64,8 @@ getRecipes.recipesByIngredients = function(ingredients) {
         data: {
             _app_id:'dfbe7dff',
             _app_key:'2bccb2cb18b4186352c9c884a2cff49a',
-            allowedIngredient: ingredients,
-            requirePictures:true,
+            q: ingredients,
+            requirePictures:true
         }
     })
     //promise

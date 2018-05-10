@@ -21,12 +21,28 @@ getRecipes.getValue = function(allIngredients) {
 };
 
 //Remove item if user requests
-// getRecipes.removeItem = function(allIngredients){
-//     $('ul').on('click', 'li', function(e){
-//         e.stopPropagation();
-//         $('li').parent().remove();
-//     });
-// }
+
+getRecipes.removeItem = function(allIngredients){
+    $('ul').on('click', 'li', function(e){
+        e.stopPropagation();
+        const removedItem = $(this).remove().text();
+        console.log(removedItem)
+        for (let i = 0; i < allIngredients.length; i++) {
+            if (allIngredients[i] === removedItem) {
+                allIngredients.splice(i,1)
+            }
+        }
+        getRecipes.recipesByIngredients(allIngredients);
+        console.log(allIngredients)
+    });
+}
+
+//Display no recipes if array is empty
+getRecipes.displayNone = function(allIngredients) {
+    if (allIngredients.length === 0) {
+        $('#meals').empty();
+    }
+}
 
 
 //search API for food items containing those and return list of them
@@ -67,11 +83,12 @@ getRecipes.mealInfo = function(apiResult){
 //returns an array of objects, each object contains the data you need
     const foodDataArray = foodItems.map(item => {
         const ingredients = item.ingredients;
-        const title = item.sourceDisplayName;
+        const title = item.recipeName;
         const uniqueTitle = item.id;
         let mealImageUrl = item.imageUrlsBySize['90'];
         mealImageUrl = getRecipes.trimImgUrl(mealImageUrl);
-        const itemInfoObject = {title, uniqueTitle, ingredients, mealImageUrl};
+        const websiteUrl = "https://www.yummly.com/recipe/" + uniqueTitle;
+        const itemInfoObject = {title, uniqueTitle, ingredients, mealImageUrl, websiteUrl};
         return itemInfoObject;
         
     });//end of map
@@ -88,7 +105,9 @@ getRecipes.printInfo = function(meals) {
             const $title = $('<h2>').text(oneMeal.title);
             const $ingredients = $('<li>').text(oneMeal.ingredients)
             const $image = $('<img>').attr('src', oneMeal.mealImageUrl)
-            const $mealContainer = $('<div>').append($title, $image, $ingredients);
+            const $url = $('<a>').attr({'href':oneMeal.websiteUrl, 'target':'_blank'}).text('Read More')
+            const $mealContainer = $('<div>').append($title, $image, $ingredients, $url);
+            console.log(oneMeal.websiteUrl)
             $('#meals').append($mealContainer);
         }
     });
@@ -100,6 +119,8 @@ getRecipes.printInfo = function(meals) {
 
 getRecipes.init = function() {
     getRecipes.getValue(allIngredients);
+    getRecipes.removeItem(allIngredients);
+    getRecipes.displayNone(allIngredients);
 }
 
 //Doucument ready
@@ -212,7 +233,7 @@ $(function () {
 
 
 
-    const ingredients = ["Algae", "Almond", "Amaranth", "Anchovy", "Anise", "Apple", "Apricot", "Asparagus", "Aubergine", "Avocado", "Beta Lactoglobulin", "Banana", "Barley", "Barley Flour", "Basil", "Bay Leaf", "Beef", "Beetroot", "Bell Pepper", "Black Pepper", "Black Tea", "Blackberry", "Blackcurrant", "Blue Mussel", "Blueberry", "Boiled Milk", "Bovine Lactoferrin", "Bovine Serum Albumin", "Brazil Nut", "Bread – Rye", "Bread – Wheat", "Bread - White", "Broad Bean", "Broccoli", "Bromelin", "Brussels Sprouts", "Buckwheat", "Butter Fat", "Cabbage – Green, Red & White", "Cacao", "Carambola", "Caraway", "Cardamon", "Carob", "Carrot", "Casein", "Cashew Nut", "Castor Bean", "Cauliflower", "Cayenne", "Celery", "Chamomile Tea", "Cheddar cheese", "Cherry", "Chestnut", "Chick Pea", "Chicken Breast", "Chicken Broth", "Chicken Stock", "Chicken Thigh", "Chicken Wings", "Chilli Pepper", "Chocolate", "Chub Mackerel", "Chufas", "Cinnamon", "Clam", "Clove", "Cocoa Bean", "Coconut", "Cod", "Coffee", "Conalbumin", "Coriander", "Corn Meal", "Courgette", "Milk", "Milk Whey", "Crab", "Cranberry", "Crayfish", "Cucumber", "Cumin", "Curry", "Dandelion", "Date", "Dill", "Dinkel Flour", "Dried Berries", "Duck", "Eel", "Egg – White & Yolk", "Elk / Moose Meat", "Eucalyptus", "Fennel", "Fennel Seed", "Fenugreek", "Fig", "Flaxseed", "Garlic", "Gelitin", "Ginger", "Gluten", "Goat Milk", "Grape", "Grapefruit", "Green Coffee Beans", "Green Beans", "Green Pepper", "Green Tea", "Ground Beef", "Guar Guar Gum", "Guava", "Gum Arabic", "Hake", "Halibut", "Hazelnut", "Hemp Flour", "Herring", "Honey", "Hops", "Horse Meat", "Isphagula", "Jalepeno", "Jujube fruit", "Kamut", "Kiwi Fruit", "Kohlrabi", "Lamb", "Laurel", "Leeks", "Lemon", "Lemon Verbena", "Lentils", "Lettuce", "Lime", "Lime Blossom Tea", "Linseed", "Lobster", "Lovage", "Lysozyme", "Macadamia Nuts", "Mace", "Mackerel", "Maize Corn", "Mallow Tea", "Malt", "Mandarin", "Mango", "Maple Syrup", "Mare’s Milk", "Marjoram", "Mate Tea", "Melon – Honeydew", "Milk Fat", "Milk Lactose & Powder", "Millet", "Millet Seed", "Mixed Fish", "Mixed Seafood", "Mixed Spices", "Mint", "Mould Cheese", "Mushroom", "Mustard", "Mutton", "Nettle", "Oat Flour", "Oats", "Octopus", "Olive", "Onion", "Orange", "Oregano", "Ovalbumin", "Oyster", "Pacific Squid", "Papaya", "Paprika", "Parsley", "Parsnip", "Passion Fruit", "Pea", "Peach", "Peanut", "Peanut Butter", "Pear", "Pecan", "Persimmon", "Pilchard", "Pine Nut", "Pineapple", "Pistachio Nut", "Plaice", "Plum", "Poppy Seed", "Pork", "Potato", "Pumpkin", "Pumpkin Seed", "Quinoa", "Rabbit", "Radish", "Rapeseed", "Raspberry", "Red Bass", "Red Beet", "Red Currant", "Red Kidney Bean", "Rice", "Rice Flour", "Rooibos Tea", "Rosehip Tea", "Rosemary", "Runner Beans", "Rye", "Rye Flour", "Salmon", "Semolina", "Sesame Seed", "Sheep’s Milk", "Sheep’s Milk Whey", "Shrimp", "Snail", "Sole", "Soya Bean", "Spinach", "Squid", "Steak", "Strawberry", "Sugar", "Sunflower Seed", "Sweet Chestnut", "Sweet Potato", "Sweet Corn", "Swordfish", "Tapioca", "Tarragon", "Tea", "Thyme", "Tomato", "Triticale", "Trout", "Tuna", "Turkey Meat", "Turmeric", "Vanilla", "Veal", "Vegetable(Mixed)", "Venison", "Walnut", "Watermelon", "Wheat", "White Bean", "Whole Chicken", "Yeast", "Pizza Dough", "Cherry Tomato"]
+    const ingredients = ["Algae", "Almond", "Amaranth", "Anchovy", "Anise", "Apple", "Apricot", "Asparagus", "Aubergine", "Avocado", "Beta Lactoglobulin", "Banana", "Barley", "Barley Flour", "Basil", "Bay Leaf", "Beef", "Beetroot", "Bell Pepper", "Black Pepper", "Black Tea", "Blackberry", "Blackcurrant", "Blue Mussel", "Blueberry", "Boiled Milk", "Bovine Lactoferrin", "Bovine Serum Albumin", "Brazil Nut", "Bread", "Broad Bean", "Broccoli", "Bromelin", "Brussels Sprouts", "Buckwheat", "Butter Fat", "Cabbage – Green, Red & White", "Cacao", "Carambola", "Caraway", "Cardamon", "Carob", "Carrot", "Casein", "Cashew Nut", "Castor Bean", "Cauliflower", "Cayenne", "Celery", "Chamomile Tea", "Cheddar cheese", "Cherry", "Chestnut", "Chick Pea", "Chicken Breast", "Chicken Broth", "Chicken Stock", "Chicken Thigh", "Chicken Wings", "Chilli Pepper", "Chocolate", "Chub Mackerel", "Chufas", "Cinnamon", "Clam", "Clove", "Cocoa Bean", "Coconut", "Cod", "Coffee", "Conalbumin", "Coriander", "Corn Meal", "Courgette", "Milk", "Milk Whey", "Crab", "Cranberry", "Crayfish", "Cucumber", "Cumin", "Curry", "Dandelion", "Date", "Dill", "Dinkel Flour", "Dried Berries", "Duck", "Eel", "Egg – White & Yolk", "Elk / Moose Meat", "Eucalyptus", "Fennel", "Fennel Seed", "Fenugreek", "Fig", "Flaxseed", "Garlic", "Gelitin", "Ginger", "Gluten", "Goat Milk", "Grape", "Grapefruit", "Green Coffee Beans", "Green Beans", "Green Pepper", "Green Tea", "Ground Beef", "Guar Guar Gum", "Guava", "Gum Arabic", "Hake", "Halibut", "Hazelnut", "Hemp Flour", "Herring", "Honey", "Hops", "Horse Meat", "Isphagula", "Jalepeno", "Jujube fruit", "Kamut", "Kiwi Fruit", "Kohlrabi", "Lamb", "Laurel", "Leeks", "Lemon", "Lemon Verbena", "Lentils", "Lettuce", "Lime", "Lime Blossom Tea", "Linseed", "Lobster", "Lovage", "Lysozyme", "Macadamia Nuts", "Mace", "Mackerel", "Maize Corn", "Mallow Tea", "Malt", "Mandarin", "Mango", "Maple Syrup", "Mare’s Milk", "Marjoram", "Mate Tea", "Melon – Honeydew", "Milk Fat", "Milk Lactose & Powder", "Millet", "Millet Seed", "Mixed Fish", "Mixed Seafood", "Mixed Spices", "Mint", "Mould Cheese", "Mushroom", "Mustard", "Mutton", "Nettle", "Oat Flour", "Oats", "Octopus", "Olive", "Onion", "Orange", "Oregano", "Ovalbumin", "Oyster", "Pacific Squid", "Papaya", "Paprika", "Parsley", "Parsnip", "Passion Fruit", "Pea", "Peach", "Peanut", "Peanut Butter", "Pear", "Pecan", "Persimmon", "Pilchard", "Pine Nut", "Pineapple", "Pistachio Nut", "Plaice", "Plum", "Poppy Seed", "Pork", "Potato", "Pumpkin", "Pumpkin Seed", "Quinoa", "Rabbit", "Radish", "Rapeseed", "Raspberry", "Red Bass", "Red Beet", "Red Currant", "Red Kidney Bean", "Rice", "Rice Flour", "Rooibos Tea", "Rosehip Tea", "Rosemary", "Runner Beans", "Rye", "Rye Flour", "Salmon", "Semolina", "Sesame Seed", "Sheep’s Milk", "Sheep’s Milk Whey", "Shrimp", "Snail", "Sole", "Soya Bean", "Spinach", "Squid", "Steak", "Strawberry", "Sugar", "Sunflower Seed", "Sweet Chestnut", "Sweet Potato", "Sweet Corn", "Swordfish", "Tapioca", "Tarragon", "Tea", "Thyme", "Tomato", "Triticale", "Trout", "Tuna", "Turkey Meat", "Turmeric", "Vanilla", "Veal", "Vegetable(Mixed)", "Venison", "Walnut", "Watermelon", "Wheat", "White Bean", "Whole Chicken", "Yeast", "Pizza Dough", "Cherry Tomato"]
 
     autocomplete(document.getElementById("myInput"), ingredients);
 

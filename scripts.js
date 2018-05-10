@@ -5,6 +5,20 @@ const allIngredients = [];
 
 //Get values from search bar
 //Get Data Inputted from user - Ty 1hr
+//submit on enter
+
+//add meals returned on side(results)***
+//make ingredients into a list***
+//limit displayed ingredients to 5 with ...***
+//loading 3 at a time, load on scroll
+
+//toggle class hide results, start with 100% home, autoscroll down on submit
+//add dietary restrictions and flavors w/ filter
+//add more food items to list
+
+
+
+
 
 
 
@@ -61,7 +75,7 @@ getRecipes.recipesByIngredients = function(ingredients) {
     })
     //promise
     .then((res) => {
-        const mealsReturned = res.mealsReturned
+        // const mealsReturned = res.mealsReturned
         console.log(res)
         const mealInfoArray = getRecipes.mealInfo(res);
         console.log(`meal info array: `, mealInfoArray);
@@ -76,13 +90,15 @@ getRecipes.trimImgUrl = function(imgUrl){
     //splits string at = sign and you keep the index of 0 
 }
 
+
 getRecipes.mealInfo = function(apiResult){
     const foodItems = apiResult.matches;
     // console.log(foodItems);
     
 //returns an array of objects, each object contains the data you need
     const foodDataArray = foodItems.map(item => {
-        const ingredients = item.ingredients;
+        //returns only 5 ingredients required for meal
+        const ingredients = item.ingredients.slice(0,5);
         const title = item.recipeName;
         const uniqueTitle = item.id;
         let mealImageUrl = item.imageUrlsBySize['90'];
@@ -98,15 +114,32 @@ getRecipes.mealInfo = function(apiResult){
 //Putting information pulled from API on the webpage including Img, title, ingredients, and rating
 
 getRecipes.printInfo = function(meals) {
+    
     //Empty the results and display new ones
     $('#meals').empty();
     meals.forEach((oneMeal) =>{
+
+        //create variable for ul which creates ul element in html
+        const $ul = $('<ul>');
+
+        //forEach to go through every item in the ingredients array
+        oneMeal.ingredients.forEach(function(ingredient){
+
+            //create variable for li which creates li for each ingredient
+            const $li = $('<li>').text(ingredient);
+            //add each list item to ul
+            $ul.append($li);
+        })
+        
+        $('#meals').append($ul);
+
         if (oneMeal.mealImageUrl) {
             const $title = $('<h2>').text(oneMeal.title);
-            const $ingredients = $('<li>').text(oneMeal.ingredients)
+            const $ingredients = $ul;
             const $image = $('<img>').attr('src', oneMeal.mealImageUrl)
             const $url = $('<a>').attr({'href':oneMeal.websiteUrl, 'target':'_blank'}).text('Read More')
             const $mealContainer = $('<div>').append($title, $image, $ingredients, $url);
+            
             console.log(oneMeal.websiteUrl)
             $('#meals').append($mealContainer);
         }

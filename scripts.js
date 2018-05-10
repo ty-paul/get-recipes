@@ -78,8 +78,9 @@ getRecipes.recipesByIngredients = function(ingredients) {
         data: {
             _app_id:'dfbe7dff',
             _app_key:'2bccb2cb18b4186352c9c884a2cff49a',
-            allowedIngredient: ingredients,
-            requirePictures:true,
+            q: ingredients,
+            // allowedIngredient: ingredients,
+            // requirePictures:true,
         }
     })
     //promise
@@ -148,12 +149,9 @@ getRecipes.printInfo = function(meals) {
             const $image = $('<img>').attr('src', oneMeal.mealImageUrl)
             const $url = $('<a>').attr({'href':oneMeal.websiteUrl, 'target':'_blank'}).text('Read More')
             const $mealContainer = $('<div>').append($title, $image, $ingredients, $url);
-<<<<<<< HEAD
             
             console.log(oneMeal.websiteUrl)
-=======
             // console.log(oneMeal.websiteUrl)
->>>>>>> 33d1885047ed0caa572d522b7c23bc8fb2c9d3f0
             $('#meals').append($mealContainer);
         }
     });

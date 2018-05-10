@@ -1,12 +1,12 @@
 //Main app object
 const getRecipes = {};
-
+const allIngredients = [];
 
 
 //Get values from search bar
 //Get Data Inputted from user - Ty 1hr
 
-const allIngredients = [];
+
 
 getRecipes.getValue = function(allIngredients) {
     $('input[type=submit]').on('click', function(e){
@@ -21,12 +21,12 @@ getRecipes.getValue = function(allIngredients) {
 };
 
 //Remove item if user requests
-getRecipes.removeItem = function(allIngredients){
-    $('ul').on('click', 'li', function(e){
-        e.stopPropagation();
-        $('li').parent().remove();
-    });
-}
+// getRecipes.removeItem = function(allIngredients){
+//     $('ul').on('click', 'li', function(e){
+//         e.stopPropagation();
+//         $('li').parent().remove();
+//     });
+// }
 
 
 //search API for food items containing those and return list of them
@@ -49,7 +49,7 @@ getRecipes.recipesByIngredients = function(ingredients) {
         console.log(res)
         const mealInfoArray = getRecipes.mealInfo(res);
         console.log(`meal info array: `, mealInfoArray);
-        
+        getRecipes.printInfo(mealInfoArray)
         });
 
 };
@@ -67,15 +67,32 @@ getRecipes.mealInfo = function(apiResult){
 //returns an array of objects, each object contains the data you need
     const foodDataArray = foodItems.map(item => {
         const ingredients = item.ingredients;
-        const title = item.id;
+        const title = item.sourceDisplayName;
+        const uniqueTitle = item.id;
         let mealImageUrl = item.imageUrlsBySize['90'];
         mealImageUrl = getRecipes.trimImgUrl(mealImageUrl);
-        const itemInfoObject = {title, ingredients, mealImageUrl};
+        const itemInfoObject = {title, uniqueTitle, ingredients, mealImageUrl};
         return itemInfoObject;
         
     });//end of map
     return foodDataArray;
 }
+
+//Putting information pulled from API on the webpage including Img, title, ingredients, and rating
+
+getRecipes.printInfo = function(meals) {
+    //Empty the results and display new ones
+    $('#meals').empty();
+    meals.forEach((oneMeal) =>{
+        if (oneMeal.mealImageUrl) {
+            const $title = $('<h2>').text(oneMeal.title);
+            const $ingredients = $('<li>').text(oneMeal.ingredients)
+            const $image = $('<img>').attr('src', oneMeal.mealImageUrl)
+            const $mealContainer = $('<div>').append($title, $image, $ingredients);
+            $('#meals').append($mealContainer);
+        }
+    });
+};
 
 
 

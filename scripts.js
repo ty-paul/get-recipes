@@ -21,42 +21,50 @@ const allIngredients = [];
 
 
 
-
 getRecipes.getValue = function(allIngredients) {
     $('input[type=submit]').on('click', function(e){
-        e.preventDefault();        
-        const oneIngredient = $('input[name=myIngredients]').val();
-        allIngredients.push(oneIngredient);
-        $('ul').append(`<li>${oneIngredient}</li>`);
-        console.log(allIngredients)
-        getRecipes.recipesByIngredients(allIngredients);
+        e.preventDefault();
+        const inputText = $('input[type=text]').val();
+        if (inputText) {
+            const oneIngredient = $('input[name=myIngredients]').val();
+            allIngredients.push(oneIngredient);
+            $('ul').append(`<li>${oneIngredient}</li>`);
+            // console.log(allIngredients)
+            getRecipes.recipesByIngredients(allIngredients);
+            //reset form after submitting
+            const form = document.getElementById('submitIngredient');
+            form.reset();
+        }     
     });
+
     return allIngredients
 };
 
-//Remove item if user requests
+//Remove item if user requests + Display nothing if array is empty
 
 getRecipes.removeItem = function(allIngredients){
     $('ul').on('click', 'li', function(e){
         e.stopPropagation();
         const removedItem = $(this).remove().text();
-        console.log(removedItem)
+        // console.log(removedItem)
         for (let i = 0; i < allIngredients.length; i++) {
             if (allIngredients[i] === removedItem) {
                 allIngredients.splice(i,1)
             }
         }
-        getRecipes.recipesByIngredients(allIngredients);
-        console.log(allIngredients)
+        if (allIngredients.length === 0) {
+            $('#meals').empty();
+        }
+        else {
+            getRecipes.recipesByIngredients(allIngredients);
+            // console.log(allIngredients)
+        }
     });
 }
 
-//Display no recipes if array is empty
-getRecipes.displayNone = function(allIngredients) {
-    if (allIngredients.length === 0) {
-        $('#meals').empty();
-    }
-}
+
+
+
 
 
 //search API for food items containing those and return list of them
@@ -70,7 +78,8 @@ getRecipes.recipesByIngredients = function(ingredients) {
         data: {
             _app_id:'dfbe7dff',
             _app_key:'2bccb2cb18b4186352c9c884a2cff49a',
-            q: ingredients
+            allowedIngredient: ingredients,
+            requirePictures:true,
         }
     })
     //promise
@@ -78,7 +87,7 @@ getRecipes.recipesByIngredients = function(ingredients) {
         // const mealsReturned = res.mealsReturned
         console.log(res)
         const mealInfoArray = getRecipes.mealInfo(res);
-        console.log(`meal info array: `, mealInfoArray);
+        // console.log(`meal info array: `, mealInfoArray);
         getRecipes.printInfo(mealInfoArray)
         });
 
@@ -139,8 +148,12 @@ getRecipes.printInfo = function(meals) {
             const $image = $('<img>').attr('src', oneMeal.mealImageUrl)
             const $url = $('<a>').attr({'href':oneMeal.websiteUrl, 'target':'_blank'}).text('Read More')
             const $mealContainer = $('<div>').append($title, $image, $ingredients, $url);
+<<<<<<< HEAD
             
             console.log(oneMeal.websiteUrl)
+=======
+            // console.log(oneMeal.websiteUrl)
+>>>>>>> 33d1885047ed0caa572d522b7c23bc8fb2c9d3f0
             $('#meals').append($mealContainer);
         }
     });
@@ -153,7 +166,6 @@ getRecipes.printInfo = function(meals) {
 getRecipes.init = function() {
     getRecipes.getValue(allIngredients);
     getRecipes.removeItem(allIngredients);
-    getRecipes.displayNone(allIngredients);
 }
 
 //Doucument ready
@@ -166,6 +178,7 @@ $(function () {
 
     //Autocomplete Form Section
     function autocomplete(inp, arr) {
+        
         /*the autocomplete function takes two arguments,
         the text field element and an array of possible autocompleted values:*/
         var currentFocus;
@@ -173,6 +186,7 @@ $(function () {
         inp.addEventListener("input", function (e) {
             var a, b, i, val = this.value;
             /*close any already open lists of autocompleted values*/
+            /*reset form*/
             closeAllLists();
             if (!val) { return false; }
             currentFocus = -1;
@@ -221,13 +235,6 @@ $(function () {
                 currentFocus--;
                 /*and and make the current item more visible:*/
                 addActive(x);
-            } else if (e.keyCode == 13) {
-                /*If the ENTER key is pressed, prevent the form from being submitted,*/
-                e.preventDefault();
-                if (currentFocus > -1) {
-                    /*and simulate a click on the "active" item:*/
-                    if (x) x[currentFocus].click();
-                }
             }
         });
         function addActive(x) {

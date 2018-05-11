@@ -1,6 +1,7 @@
 //Main app object
 const getRecipes = {};
 const allIngredients = [];
+const allAllergies = []
 
 
 //Get values from search bar
@@ -18,21 +19,45 @@ const allIngredients = [];
 //add more food items to list
 
 
+//This function checks whether the allergy checkbox is checked. If it is, it applies the filter to the Ajax allowedAllergy function. When unchecked, the filter is removed
+getRecipes.allergy = function(allAllergies) {
+    $('.allergy input[type=checkbox]').change(function() {
+        if (this.checked) {
+            allAllergies.push(($(this).val()))
+            $('#meals').show()
+            $('.itemsRemaining').show()
+        }
+        else {
+            for (i = 0; i < allAllergies.length; i++) {
+                if (allAllergies[i] === $(this).val()) {
+                    allAllergies.splice(i,1)
+                    if (allAllergies.length === 0 && allIngredients.length === 0) {
+                        $('#meals').hide()
+                        $('.itemsRemaining').hide()
+                        console.log(allAllergies.length)
+                        console.log(allIngredients.length)
+                    }
+                }
+            }
+        }
+        getRecipes.recipesByIngredients(allIngredients, allAllergies)
+    });
+};
 
-
-
-
-
-getRecipes.getValue = function(allIngredients) {
+//This is the main submit button for the website. When its clicked, information is received from API
+getRecipes.getValue = function(allIngredients, allAllergies) {
     $('input[type=submit]').on('click', function(e){
         e.preventDefault();
+        //The show methods are used to display the amount of recipes remaining. They are hidden again when there is nothing to display
+        $('#meals').show()
+        $('.itemsRemaining').show()
         const inputText = $('input[type=text]').val();
         if (inputText) {
             const oneIngredient = $('input[name=myIngredients]').val();
             allIngredients.push(oneIngredient);
             $('ul').append(`<li>${oneIngredient}</li>`);
             // console.log(allIngredients)
-            getRecipes.recipesByIngredients(allIngredients);
+            getRecipes.recipesByIngredients(allIngredients, allAllergies);
             //reset form after submitting
             const form = document.getElementById('submitIngredient');
             form.reset();
@@ -43,21 +68,26 @@ getRecipes.getValue = function(allIngredients) {
 
 //Remove item if user requests + Display nothing if array is empty
 
-getRecipes.removeItem = function(allIngredients){
+getRecipes.removeItem = function(allIngredients, allAllergies){
+    //selects the ul, but targets the li on click
     $('ul').on('click', 'li', function(e){
         e.stopPropagation();
         const removedItem = $(this).remove().text();
         // console.log(removedItem)
         for (let i = 0; i < allIngredients.length; i++) {
+            //this searches for the ingredient that has to be removed
             if (allIngredients[i] === removedItem) {
                 allIngredients.splice(i,1)
             }
         }
-        if (allIngredients.length === 0) {
-            $('#meals').empty();
+        if (allAllergies.length === 0 && allIngredients.length === 0) {
+            //if the list is empty, nothing is displayed
+            $('#meals').empty()
+            $('.itemsRemaining').hide()
+
         }
         else {
-            getRecipes.recipesByIngredients(allIngredients);
+            getRecipes.recipesByIngredients(allIngredients, allAllergies);
             // console.log(allIngredients)
         }
     });
@@ -72,7 +102,7 @@ getRecipes.removeItem = function(allIngredients){
 //display recipe title ingredients image and rating + url to actual website
 //users can sort by cooking time/rating/dietary restrictions
 
-getRecipes.recipesByIngredients = function(ingredients) {
+getRecipes.recipesByIngredients = function(ingredients,allAllergies) {
     $.ajax({
         url: 'http://api.yummly.com/v1/api/recipes',
         dataType: 'json',
@@ -89,15 +119,18 @@ getRecipes.recipesByIngredients = function(ingredients) {
 
 
 
+            allowedAllergy: allAllergies,
+            requirePictures:true
         }
     })
     //promise
     .then((res) => {
         // const mealsReturned = res.mealsReturned
-        console.log(res)
+        // console.log(res)
         const mealInfoArray = getRecipes.mealInfo(res);
         // console.log(`meal info array: `, mealInfoArray);
-        getRecipes.printInfo(mealInfoArray)
+        getRecipes.printInfo(mealInfoArray);
+        getRecipes.remaining(res);
         });
 };
 
@@ -132,12 +165,20 @@ getRecipes.mealInfo = function(apiResult){
 
 //Putting information pulled from API on the webpage including Img, title, ingredients, and rating
 
+//return the amount of search results
+getRecipes.remaining = function(foodInfo) {
+    const $results = $('<h2>').text(`Total Recipes Found: ${foodInfo.totalMatchCount}`)
+    $('.itemsRemaining').html($results)
+
+}
+
+//This is how each ingredient is displayed on the page
 getRecipes.printInfo = function(meals) {
     
+
     //Empty the results and display new ones
     $('#meals').empty();
     meals.forEach((oneMeal) =>{
-
         //create variable for ul which creates ul element in html
         const $ul = $('<ul>');
 
@@ -159,7 +200,7 @@ getRecipes.printInfo = function(meals) {
             const $url = $('<a>').attr({'href':oneMeal.websiteUrl, 'target':'_blank'}).text('Read More')
             const $mealContainer = $('<div>').append($title, $image, $ingredients, $url);
             
-            console.log(oneMeal.websiteUrl)
+            // console.log(oneMeal.websiteUrl)
             // console.log(oneMeal.websiteUrl)
             $('#meals').append($mealContainer);
         }
@@ -171,9 +212,9 @@ getRecipes.printInfo = function(meals) {
 //Create an init method
 
 getRecipes.init = function() {
+    getRecipes.allergy(allAllergies)
     getRecipes.getValue(allIngredients);
-    getRecipes.removeItem(allIngredients);
-    getRecipes.infinite()
+    getRecipes.removeItem(allIngredients, allAllergies);
 }
 
 //Doucument ready
@@ -206,11 +247,11 @@ $(function () {
             /*for each item in the array...*/
             for (i = 0; i < arr.length; i++) {
                 /*check if the item starts with the same letters as the text field value:*/
-                if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                if (arr[i].toUpperCase().includes(val.toUpperCase())) {
                     /*create a DIV element for each matching element:*/
                     b = document.createElement("DIV");
                     /*make the matching letters bold:*/
-                    b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+                    b.innerHTML = arr[i].substr(0, val.length);
                     b.innerHTML += arr[i].substr(val.length);
                     /*insert a input field that will hold the current array item's value:*/
                     b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";

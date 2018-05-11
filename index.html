@@ -22,29 +22,47 @@
         <div class="advancedSearch">
             <div class="allergy">
                 <h3>Allergies</h3>
-                <form action="">
-                    
-
-    
+                <form action="allergy.php">
+                    <input type="checkbox" name="allergy" id="dairy" value="396^Dairy-Free">
+                    <label for="dairy">Dairy Free</label>   
+                    <input type="checkbox" name="allergy" id="gluten" value="393^Gluten-Free">
+                    <label for="gluten">Gluten Free</label>  
+                    <input type="checkbox" name="allergy" id="peanut" value="394^Peanut-Free">
+                    <label for="peanut">Peanut Free</label>  
+                    <input type="checkbox" name="allergy" id="tree" value="395^Tree Nut-Free">
+                    <label for="tree">Tree Nut Free</label>  
+                    <input type="checkbox" name="allergy" id="seafood" value="398^Seafood-Free">
+                    <label for="seafood">Seafood Free</label>  
+                    <input type="checkbox" name="allergy" id="wheat" value="392^Wheat-Free">
+                    <label for="wheat">Wheat Free</label>  
                 </form>
             </div>
 
         </div>
 
         <div class="advancedSearch">
-            <div class="allergy">
-                <h3>Allergies</h3>
-                <form action="">
-        
-        
-        
+            <div class="diet">
+                <h3>Dietary Restrictions</h3>
+                <form action="diet.php">
+                    <input type="radio" name="diet" id="lacto-ovo" value="387^Lacto-ovo Vegetarian">
+                    <label for="lacto-ovo">Lacto-Ovo Vegetarian</label>  
+                    <input type="radio" name="diet" id="lacto" value="388^Lacto Vegetarian">
+                    <label for="lacto">Lacto Vegetarian</label>   
+                    <input type="radio" name="diet" id="ovo" value="389^Ovo Vegetarian">
+                    <label for="ovo">Ovo Vegetarian</label>  
+                    <input type="radio" name="diet" id="pescetarian" value="390^Pescetarian">
+                    <label for="pescetarian">Pescetarian</label>  
+                    <input type="radio" name="diet" id="vegan" value="386^Vegan">
+                    <label for="vegan">Vegan</label>  
+                    <input type="radio" name="diet" id="none" value="none" checked>
+                    <label for="none">None</label>  
                 </form>
             </div>
         
         </div>
 
         <ul><!-- This is where the search items are printed --></ul>
-
+        <div class="itemsRemaining"></div>
         <div class="container" id="meals"></div>
 
 

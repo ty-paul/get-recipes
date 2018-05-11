@@ -1,7 +1,8 @@
 //Main app object
 const getRecipes = {};
 const allIngredients = [];
-const allAllergies = []
+const allAllergies = [];
+let dietRest = "none"
 
 
 //Get values from search bar
@@ -30,11 +31,9 @@ getRecipes.allergy = function(allAllergies) {
             for (i = 0; i < allAllergies.length; i++) {
                 if (allAllergies[i] === $(this).val()) {
                     allAllergies.splice(i,1)
-                    if (allAllergies.length === 0 && allIngredients.length === 0) {
+                    if (allAllergies.length === 0 && allIngredients.length === 0 && dietRest === "none") {
                         $('#meals').hide()
                         $('.itemsRemaining').hide()
-                        console.log(allAllergies.length)
-                        console.log(allIngredients.length)
                     }
                 }
             }
@@ -43,11 +42,30 @@ getRecipes.allergy = function(allAllergies) {
     });
 };
 
+//This function works similar to the function above, but only returns one string rather than an arrary. This string is then used in the getValue function to search for dietary restrictions
+
+getRecipes.diet = function(dietRest) {
+    $('.diet input[type=radio]').change(function(){
+        if (this.checked) {
+            $('#meals').show()
+            $('.itemsRemaining').show()
+            dietRest = $(this).val()
+            if (allAllergies.length === 0 && allIngredients.length === 0 && dietRest === "none") {
+                $('#meals').hide()
+                $('.itemsRemaining').hide()
+            }
+        }
+        
+        getRecipes.recipesByIngredients(allIngredients, allAllergies, dietRest)
+    });
+}
+
 //This is the main submit button for the website. When its clicked, information is received from API
-getRecipes.getValue = function(allIngredients, allAllergies) {
+getRecipes.getValue = function(allIngredients, allAllergies, dietRest) {
     $('input[type=submit]').on('click', function(e){
         e.preventDefault();
         //The show methods are used to display the amount of recipes remaining. They are hidden again when there is nothing to display
+        $('main').removeClass('hidden')
         $('#meals').show()
         $('.itemsRemaining').show()
         const inputText = $('input[type=text]').val();
@@ -80,29 +98,38 @@ getRecipes.removeItem = function(allIngredients, allAllergies){
                 allIngredients.splice(i,1)
             }
         }
-        if (allAllergies.length === 0 && allIngredients.length === 0) {
+        if (allAllergies.length === 0 && allIngredients.length === 0 && dietRest === "none") {
             //if the list is empty, nothing is displayed
             $('#meals').empty()
             $('.itemsRemaining').hide()
 
         }
         else {
-            getRecipes.recipesByIngredients(allIngredients, allAllergies);
+            getRecipes.recipesByIngredients(allIngredients, allAllergies, dietRest);
             // console.log(allIngredients)
         }
     });
 }
 
+//This function toggles the Advanced Search option
 
+getRecipes.showAdvanced = function() {
+    $('.advancedButton').on('click', function(e){
+          e.preventDefault();
+          console.log("hello")
+        $('.advancedSearch').toggleClass('hidden');
+        //This next code toggles the text from (Advanced Settings) to (Close Settings)
+        $(this).text($(this).text() == "Close Settings" ? "Advanced Settings" : "Close Settings");
 
-
+        });
+}
 
 
 //search API for food items containing those and return list of them
 //display recipe title ingredients image and rating + url to actual website
 //users can sort by cooking time/rating/dietary restrictions
 
-getRecipes.recipesByIngredients = function(ingredients,allAllergies) {
+getRecipes.recipesByIngredients = function(ingredients,allAllergies,dietRest) {
     $.ajax({
         url: 'http://api.yummly.com/v1/api/recipes',
         dataType: 'json',
@@ -112,6 +139,7 @@ getRecipes.recipesByIngredients = function(ingredients,allAllergies) {
             q: ingredients,
             // "exludedIngredient[]": "gruyere",
             allowedAllergy: allAllergies,
+            allowedDiet: dietRest,
             requirePictures:true
         }
     })
@@ -204,8 +232,10 @@ getRecipes.printInfo = function(meals) {
 
 getRecipes.init = function() {
     getRecipes.allergy(allAllergies)
+    getRecipes.diet(dietRest)
     getRecipes.getValue(allIngredients);
-    getRecipes.removeItem(allIngredients, allAllergies);
+    getRecipes.removeItem(allIngredients, allAllergies, dietRest);
+    getRecipes.showAdvanced()
 }
 
 //Doucument ready

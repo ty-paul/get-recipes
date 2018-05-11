@@ -8,18 +8,21 @@
     <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
-    <main>
-
-
+    
+    <header>
         <!-- Form with Autocomplete -->
         <form autocomplete="off" action="/action_page.php" id="submitIngredient">
             <div class="autocomplete" style="width:300px;">
                 <input id="myInput" type="text" name="myIngredients" placeholder="Enter Ingredient">
             </div><!--
-             --><input type="submit">
+        --><input type="submit">
             
         </form>
-        <div class="advancedSearch">
+        
+    </header>
+    <main class="hidden">
+        <a href="#" class="advancedButton">Advanced Settings</a>
+        <div class="advancedSearch hidden">
             <div class="allergy">
                 <h3>Allergies</h3>
                 <form action="allergy.php">
@@ -40,15 +43,15 @@
 
         </div>
 
-        <div class="advancedSearch">
+        <div class="advancedSearch hidden">
             <div class="diet">
                 <h3>Dietary Restrictions</h3>
                 <form action="diet.php">
-                    <input type="radio" name="diet" id="lacto-ovo" value="387^Lacto-ovo Vegetarian">
+                    <input type="radio" name="diet" id="lacto-ovo" value="387^Lacto-ovo vegetarian">
                     <label for="lacto-ovo">Lacto-Ovo Vegetarian</label>  
-                    <input type="radio" name="diet" id="lacto" value="388^Lacto Vegetarian">
+                    <input type="radio" name="diet" id="lacto" value="388^Lacto vegetarian">
                     <label for="lacto">Lacto Vegetarian</label>   
-                    <input type="radio" name="diet" id="ovo" value="389^Ovo Vegetarian">
+                    <input type="radio" name="diet" id="ovo" value="389^Ovo vegetarian">
                     <label for="ovo">Ovo Vegetarian</label>  
                     <input type="radio" name="diet" id="pescetarian" value="390^Pescetarian">
                     <label for="pescetarian">Pescetarian</label>  
@@ -58,7 +61,7 @@
                     <label for="none">None</label>  
                 </form>
             </div>
-        
+
         </div>
 
         <ul><!-- This is where the search items are printed --></ul>

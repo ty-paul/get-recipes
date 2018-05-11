@@ -110,15 +110,7 @@ getRecipes.recipesByIngredients = function(ingredients,allAllergies) {
             _app_id:'dfbe7dff',
             _app_key:'2bccb2cb18b4186352c9c884a2cff49a',
             q: ingredients,
-            maxResult: 8
-            // ATTR_NAME: vitc;
-            // allowedIngredient: ingredients,
-            // requirePictures:true,
-
-          
-
-
-
+            maxResult: 8,
             allowedAllergy: allAllergies,
             requirePictures:true
         }

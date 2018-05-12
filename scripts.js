@@ -1,3 +1,7 @@
+$(window).on('beforeunload', function () {
+    $("video").hide();
+});
+
 //Main app object
 const getRecipes = {};
 const allIngredients = [];
@@ -13,6 +17,7 @@ let dietRest = "none"
 //make ingredients into a list***
 //limit displayed ingredients to 5 with ...***
 //loading 3 at a time, load on scroll
+//add refresh to page(reset search parameters)
 
 //toggle class hide results, start with 100% home, autoscroll down on submit
 //add dietary restrictions and flavors w/ filter
@@ -80,7 +85,6 @@ getRecipes.getValue = function(allIngredients, allAllergies, dietRest) {
             form.reset();
         }     
     });
-
     return allIngredients
 };
 
@@ -136,6 +140,7 @@ getRecipes.recipesByIngredients = function(ingredients,allAllergies,dietRest) {
             _app_id:'dfbe7dff',
             _app_key:'2bccb2cb18b4186352c9c884a2cff49a',
             q: ingredients,
+            maxResult: 8,
             allowedAllergy: allAllergies,
             allowedDiet: dietRest,
             requirePictures:true
@@ -151,13 +156,14 @@ getRecipes.recipesByIngredients = function(ingredients,allAllergies,dietRest) {
         getRecipes.printInfo(mealInfoArray);
         getRecipes.remaining(res);
         });
-
 };
+
+
 
 //using split function, split string(url) at the equals sign, only keep index 0(first part of array). This replaces default small image with large image
 getRecipes.trimImgUrl = function(imgUrl){
     return imgUrl.split('=')[0]
-    //splits string at = sign and you keep the index of 0 
+    //splits string at = sign and you keep the index of [0] and discard [1]
 }
 
 
@@ -241,7 +247,6 @@ getRecipes.init = function() {
 
 $(function () {
     getRecipes.init();
-
 
 
 

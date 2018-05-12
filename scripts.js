@@ -116,7 +116,6 @@ getRecipes.removeItem = function(allIngredients, allAllergies){
 getRecipes.showAdvanced = function() {
     $('.advancedButton').on('click', function(e){
           e.preventDefault();
-          console.log("hello")
         $('.advancedSearch').toggleClass('hidden');
         //This next code toggles the text from (Advanced Settings) to (Close Settings)
         $(this).text($(this).text() == "Close Settings" ? "Advanced Settings" : "Close Settings");
@@ -137,10 +136,10 @@ getRecipes.recipesByIngredients = function(ingredients,allAllergies,dietRest) {
             _app_id:'dfbe7dff',
             _app_key:'2bccb2cb18b4186352c9c884a2cff49a',
             q: ingredients,
-            // "exludedIngredient[]": "gruyere",
             allowedAllergy: allAllergies,
             allowedDiet: dietRest,
             requirePictures:true
+            //Add pages filter to display 12
         }
     })
     //promise

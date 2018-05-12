@@ -1,3 +1,7 @@
+$(window).on('beforeunload', function () {
+    $("video").hide();
+});
+
 //Main app object
 const getRecipes = {};
 const allIngredients = [];

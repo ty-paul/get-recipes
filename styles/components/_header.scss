@@ -1,0 +1,46 @@
+header {
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#heroVideo { 
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+//   width: auto;
+//   height: auto;
+  z-index: -100;
+  transform: translate(-50%, -50%);  
+  opacity: 0.9;
+    // box-shadow: 12px 9px 13px rgba(255, 0, 255, 0.75);
+    // filter: brightness(90%)
+}
+
+h1 {
+    color: white;
+    margin-top: 5%;
+    margin-bottom: 20%;
+}
+
+#submitIngredient {
+    // display: none;
+    z-index: 1;
+}
+
+#myInput {
+    //height: 200px; 
+    
+}
+
+main {
+    background: white;
+}
+
+#meals {
+    background: white;
+}

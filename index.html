@@ -11,7 +11,24 @@
 <body>
     
     <header>
-        <div class="wrapper">
+        <h1>nom<span>.</span></h1>
+        <!-- Hero Video -->
+        <video src="assets/foodVideo.mp4" autoplay muted loop id="heroVideo" class="fullscreen"></video>
+        
+        <!-- <img src="assets/qSifIgP.jpg" alt=""> -->
+
+        <!-- Form with Autocomplete -->
+        <form autocomplete="off" action="/action_page.php" id="submitIngredient">
+            <div class="autocomplete" >
+                <input id="myInput" class="myInput" type="text" name="myIngredients" placeholder="Enter Ingredient">
+            </div>
+            <input type="submit" value="Search" id="headerSearch">
+        </form>
+
+         <!-- style="width:500px;" -->
+        
+
+<!--         <div class="wrapper">
             <h1 class="heading-top">sunday</h1>
             <h1>pantry.</h1>
             <!-- Hero Video -->
@@ -35,7 +52,8 @@
                 <a class= "header-button" href="#results">enjoy!</a>
             </div>
             
-        </div>
+        </div> -->
+
     </header>
     <main id = "results" class="hidden">
         <div class="main-nav">
@@ -95,7 +113,9 @@
         <!-- Search Results -->
         <div class="itemsRemaining"></div>
         <section>
-            <div class="container" id="meals"></div>
+            <div class="wrapper">
+                <div class="container" id="meals"></div>
+            </div>
         </section>
     
     

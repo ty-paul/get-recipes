@@ -47,6 +47,15 @@ getRecipes.allergy = function(allAllergies) {
     });
 };
 
+//Scroll to the top of the main page when submitting a new ingredient
+getRecipes.scrollToTop = function() {
+    $('html,body').animate({
+        scrollTop: $("main").offset().top
+    },
+        'slow');
+
+}
+
 //This function works similar to the function above, but only returns one string rather than an arrary. This string is then used in the getValue function to search for dietary restrictions
 
 getRecipes.diet = function(dietRest) {
@@ -69,6 +78,10 @@ getRecipes.diet = function(dietRest) {
 getRecipes.getValue = function(allIngredients, allAllergies, dietRest) {
     $('input[type=submit]').on('click', function(e){
         e.preventDefault();
+        //When the form is submitted for the first time, it is moved from the header to the footer
+        $('header #submitIngredient').prependTo('.main-nav .wrapper');
+        //This replaces the form with a button that says "enjoy!"
+        $('header .button-container').removeClass('hidden');
         //The show methods are used to display the amount of recipes remaining. They are hidden again when there is nothing to display
         $('main').removeClass('hidden')
         $('#meals').show()
@@ -87,6 +100,8 @@ getRecipes.getValue = function(allIngredients, allAllergies, dietRest) {
     });
     return allIngredients
 };
+
+
 
 //Remove item if user requests + Display nothing if array is empty
 
@@ -355,6 +370,47 @@ $(function () {
     const ingredients = ["Algae", "Almond", "Amaranth", "Anchovy", "Anise", "Apple", "Apricot", "Asparagus", "Aubergine", "Avocado", "Beta Lactoglobulin", "Banana", "Barley", "Barley Flour", "Basil", "Bay Leaf", "Beef", "Beetroot", "Bell Pepper", "Black Pepper", "Black Tea", "Blackberry", "Blackcurrant", "Blue Mussel", "Blueberry", "Boiled Milk", "Bovine Lactoferrin", "Bovine Serum Albumin", "Brazil Nut", "Bread", "Broad Bean", "Broccoli", "Bromelin", "Brussels Sprouts", "Buckwheat", "Butter Fat", "Cabbage – Green, Red & White", "Cacao", "Carambola", "Caraway", "Cardamon", "Carob", "Carrot", "Casein", "Cashew Nut", "Castor Bean", "Cauliflower", "Cayenne", "Celery", "Chamomile Tea", "Cheddar cheese", "Cherry", "Chestnut", "Chick Pea", "Chicken Breast", "Chicken Broth", "Chicken Stock", "Chicken Thigh", "Chicken Wings", "Chilli Pepper", "Chocolate", "Chub Mackerel", "Chufas", "Cinnamon", "Clam", "Clove", "Cocoa Bean", "Coconut", "Cod", "Coffee", "Conalbumin", "Coriander", "Corn Meal", "Courgette", "Milk", "Milk Whey", "Crab", "Cranberry", "Crayfish", "Cucumber", "Cumin", "Curry", "Dandelion", "Date", "Dill", "Dinkel Flour", "Dried Berries", "Duck", "Eel", "Egg – White & Yolk", "Elk / Moose Meat", "Eucalyptus", "Fennel", "Fennel Seed", "Fenugreek", "Fig", "Flaxseed", "Garlic", "Gelitin", "Ginger", "Gluten", "Goat Milk", "Grape", "Grapefruit", "Green Coffee Beans", "Green Beans", "Green Pepper", "Green Tea", "Ground Beef", "Guar Guar Gum", "Guava", "Gum Arabic", "Hake", "Halibut", "Hazelnut", "Hemp Flour", "Herring", "Honey", "Hops", "Horse Meat", "Isphagula", "Jalepeno", "Jujube fruit", "Kamut", "Kiwi Fruit", "Kohlrabi", "Lamb", "Laurel", "Leeks", "Lemon", "Lemon Verbena", "Lentils", "Lettuce", "Lime", "Lime Blossom Tea", "Linseed", "Lobster", "Lovage", "Lysozyme", "Macadamia Nuts", "Mace", "Mackerel", "Maize Corn", "Mallow Tea", "Malt", "Mandarin", "Mango", "Maple Syrup", "Mare’s Milk", "Marjoram", "Mate Tea", "Melon – Honeydew", "Milk Fat", "Milk Lactose & Powder", "Millet", "Millet Seed", "Mixed Fish", "Mixed Seafood", "Mixed Spices", "Mint", "Mould Cheese", "Mushroom", "Mustard", "Mutton", "Nettle", "Oat Flour", "Oats", "Octopus", "Olive", "Onion", "Orange", "Oregano", "Ovalbumin", "Oyster", "Pacific Squid", "Papaya", "Paprika", "Parsley", "Parsnip", "Passion Fruit", "Pea", "Peach", "Peanut", "Peanut Butter", "Pear", "Pecan", "Persimmon", "Pilchard", "Pine Nut", "Pineapple", "Pistachio Nut", "Plaice", "Plum", "Poppy Seed", "Pork", "Potato", "Pumpkin", "Pumpkin Seed", "Quinoa", "Rabbit", "Radish", "Rapeseed", "Raspberry", "Red Bass", "Red Beet", "Red Currant", "Red Kidney Bean", "Rice", "Rice Flour", "Rooibos Tea", "Rosehip Tea", "Rosemary", "Runner Beans", "Rye", "Rye Flour", "Salmon", "Semolina", "Sesame Seed", "Sheep’s Milk", "Sheep’s Milk Whey", "Shrimp", "Snail", "Sole", "Soya Bean", "Spinach", "Squid", "Steak", "Strawberry", "Sugar", "Sunflower Seed", "Sweet Chestnut", "Sweet Potato", "Sweet Corn", "Swordfish", "Tapioca", "Tarragon", "Tea", "Thyme", "Tomato", "Triticale", "Trout", "Tuna", "Turkey Meat", "Turmeric", "Vanilla", "Veal", "Vegetable(Mixed)", "Venison", "Walnut", "Watermelon", "Wheat", "White Bean", "Whole Chicken", "Yeast", "Pizza Dough", "Cherry Tomato"]
 
     autocomplete(document.getElementById("myInput"), ingredients);
+   
+   
+   
+   
+    //SMOOTH SCROLLING
+    // Select all links with hashes
+    $('a[href*="#"]')
+        // Remove links that don't actually link to anything
+        .not('[href="#"]')
+        .not('[href="#0"]')
+        .click(function (event) {
+            // On-page links
+            if (
+                location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '')
+                &&
+                location.hostname == this.hostname
+            ) {
+                // Figure out element to scroll to
+                var target = $(this.hash);
+                target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                // Does a scroll target exist?
+                if (target.length) {
+                    // Only prevent default if animation is actually gonna happen
+                    event.preventDefault();
+                    $('html, body').animate({
+                        scrollTop: target.offset().top
+                    }, 1000, function () {
+                        // Callback after animation
+                        // Must change focus!
+                        var $target = $(target);
+                        $target.focus();
+                        if ($target.is(":focus")) { // Checking if the target was focused
+                            return false;
+                        } else {
+                            $target.attr('tabindex', '-1'); // Adding tabindex for elements not focusable
+                            $target.focus(); // Set focus again
+                        };
+                    });
+                }
+            }
+        });
 
 
     

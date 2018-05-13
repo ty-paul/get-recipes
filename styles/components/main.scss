@@ -1,3 +1,43 @@
 .hidden {
     display:none;
 }   
+
+main {
+    min-height: 100vh;
+}
+main .main-nav {
+    background: $blue;
+    position: sticky;
+    top:0;
+}
+
+main .main-nav .wrapper {
+    display:flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin:0 auto;
+}
+
+
+.logo {
+    color: white;
+    font-family: $primaryFont;
+    display: inline-block;
+    font-size: 25px;
+    margin: 0;
+}
+
+.searchSettings {
+   width: 70%;
+   margin: 0 auto;
+}
+
+main input[type = submit] {
+    background:$red;
+    &:hover {
+        background: lighten($color: $red, $amount: 10);
+    }
+}
+
+

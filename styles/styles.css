@@ -135,12 +135,11 @@ legend, button::-moz-focus-inner, input::-moz-focus-inner {
 img {
   max-width: 100%; }
 
-body {
-  font-family: "Roboto", sans-serif; }
 
 h1 {
   font-family: "Yeseva One", cursive;
-  font-size: 150px; }
+  font-size: 150px;
+  margin: 0; }
 
 header {
   display: -webkit-box;
@@ -156,7 +155,8 @@ header {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  height: 100vh; }
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5); }
 
 #heroVideo {
   position: fixed;
@@ -167,8 +167,7 @@ header {
   z-index: -100;
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  opacity: 0.9; }
+  transform: translate(-50%, -50%); }
 
 h1 {
   color: #ffb917;
@@ -190,12 +189,38 @@ h1 {
   background: #fdfffc;
   font-size: 18px; }
 
-#headerSearch {
+
+/* #headerSearch {
   width: 100px;
   background: #44bba4;
   color: #fdfffc;
   font-size: 18px;
   padding: 0; }
+
+header p {
+  margin-top: 5%;
+  font-size: 25px;
+  color: white;
+  width: 70%;
+  line-height: 1.5; }
+
+header form {
+  margin-top: 5%; }
+
+header .header-button {
+  color: white;
+  text-decoration: none;
+  background: #ba3f1d;
+  padding: 10px 25px;
+  font-size: 25px;
+  -webkit-transition: 0.4s ease-in-out all;
+  -o-transition: 0.4s ease-in-out all;
+  transition: 0.4s ease-in-out all; }
+  header .header-button:hover {
+    background: #de522c; }
+
+header .button-container {
+  margin-top: 5%; } */
 
 body {
   font: 16px Arial; }
@@ -216,8 +241,13 @@ input[type=text] {
   width: 100%; }
 
 input[type=submit] {
-  background-color: DodgerBlue;
-  color: #fff; }
+  background-color: #80a1c1;
+  color: #fff;
+  -webkit-transition: 0.4s ease-in-out all;
+  -o-transition: 0.4s ease-in-out all;
+  transition: 0.4s ease-in-out all; }
+  input[type=submit]:hover {
+    background: #a2bad2; }
 
 .autocomplete-items {
   position: absolute;
@@ -304,3 +334,42 @@ main {
   text-transform: capitalize;
   height: 20%;
   color: #9fadba; }
+/*   min-height: 100vh; }
+
+main .main-nav {
+  background: #80a1c1;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0; }
+
+main .main-nav .wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin: 0 auto; }
+
+.logo {
+  color: white;
+  font-family: "Yeseva One", cursive;
+  display: inline-block;
+  font-size: 25px;
+  margin: 0; }
+
+.searchSettings {
+  width: 70%;
+  margin: 0 auto; }
+
+main input[type=submit] {
+  background: #ba3f1d; }
+  main input[type=submit]:hover {
+    background: #de522c; } */

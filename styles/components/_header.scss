@@ -4,6 +4,7 @@ header {
     justify-content: flex-start;
     align-items: center;
     height: 100vh;
+    background: rgba(0,0,0,0.5)
 }
 
 #heroVideo { 
@@ -16,7 +17,7 @@ header {
 //   height: auto;
   z-index: -100;
   transform: translate(-50%, -50%);  
-  opacity: 0.9;
+
     // box-shadow: 12px 9px 13px rgba(255, 0, 255, 0.75);
     // filter: brightness(90%)
 }
@@ -28,6 +29,13 @@ h1 {
     span {
         color: $turquoise;
     }
+
+//     color: white;
+//     &.heading-top {
+//         margin-top: 5%;
+//     }
+//     // margin-bottom: 20%;
+
 }
 
 #submitIngredient {
@@ -58,9 +66,32 @@ h1 {
     padding: 0;
 }
 
+// header p {
+//     margin-top: 5%;
+//     font-size: 25px;
+//     color: white;
+//     width:70%;
+//     line-height: 1.5;
+// }
 
+// header form {
+//     margin-top: 5%;
+// }
 
+// header .header-button {
+//     color: white;
+//     text-decoration: none;
+//     background: $red;
+//     padding: 10px 25px;
+//     font-size: 25px;
+//     transition: $transition;
+//     &:hover {
+//         background: lighten($color: $red, $amount: 10);
+//     }
+// }
 
-
+// header .button-container {
+//     margin-top: 5%;
+// }
 
 

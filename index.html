@@ -27,71 +27,101 @@
 
          <!-- style="width:500px;" -->
         
+
+<!--         <div class="wrapper">
+            <h1 class="heading-top">sunday</h1>
+            <h1>pantry.</h1>
+            <!-- Hero Video -->
+            <video src="assets/foodVideo.mp4" autoplay muted loop id="heroVideo" class="fullscreen"></video>
+            
+            <!-- <img src="assets/qSifIgP.jpg" alt=""> -->
+    
+            <!-- Brief Description of the website -->
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est ut, unde, doloremque facilis commodi autem dignissimos, tenetur qui ad hic quibusdam voluptatum nemo. Placeat vitae.</p>
+    
+            <!-- Form with Autocomplete -->
+            <form autocomplete="off" action="/action_page.php" id="submitIngredient">
+                <div class="autocomplete" style="width:300px;">
+                    <input id="myInput" type="text" name="myIngredients" placeholder="Enter Ingredient">
+                </div><!--
+            --><input type="submit" value="Get Cooking">
+                
+            </form>
+
+            <div class="button-container hidden">
+                <a class= "header-button" href="#results">enjoy!</a>
+            </div>
+            
+        </div> -->
+
     </header>
-    <main class="hidden">
+    <main id = "results" class="hidden">
+        <div class="main-nav">
+            <div class="wrapper">
+                
+                <h3 class="logo">sunday pantry.</h3>
+            </div>
+            
+        </div>
         <section class="searchSettings">
             <a href="#" class="advancedButton">Advanced Settings</a>
-            <div class="advancedSearch hidden">
-                <div class="allergy">
-                    <h3>Allergies</h3>
-                    <form action="allergy.php">
-                        <input type="checkbox" name="allergy" id="dairy" value="396^Dairy-Free">
-                        <label for="dairy">Dairy Free</label>   
-                        <input type="checkbox" name="allergy" id="gluten" value="393^Gluten-Free">
-                        <label for="gluten">Gluten Free</label>  
-                        <input type="checkbox" name="allergy" id="peanut" value="394^Peanut-Free">
-                        <label for="peanut">Peanut Free</label>  
-                        <input type="checkbox" name="allergy" id="tree" value="395^Tree Nut-Free">
-                        <label for="tree">Tree Nut Free</label>  
-                        <input type="checkbox" name="allergy" id="seafood" value="398^Seafood-Free">
-                        <label for="seafood">Seafood Free</label>  
-                        <input type="checkbox" name="allergy" id="wheat" value="392^Wheat-Free">
-                        <label for="wheat">Wheat Free</label>  
-                    </form>
-                </div>
-    
+            <div class="advancedSearch hidden allergy">
+                <h3>Allergies</h3>
+                <form action="allergy.php">
+                    <input type="checkbox" name="allergy" id="dairy" value="396^Dairy-Free">
+                    <label for="dairy">Dairy Free</label>   
+                    <input type="checkbox" name="allergy" id="gluten" value="393^Gluten-Free">
+                    <label for="gluten">Gluten Free</label>  
+                    <input type="checkbox" name="allergy" id="peanut" value="394^Peanut-Free">
+                    <label for="peanut">Peanut Free</label>  
+                    <input type="checkbox" name="allergy" id="tree" value="395^Tree Nut-Free">
+                    <label for="tree">Tree Nut Free</label>  
+                    <input type="checkbox" name="allergy" id="seafood" value="398^Seafood-Free">
+                    <label for="seafood">Seafood Free</label>  
+                    <input type="checkbox" name="allergy" id="wheat" value="392^Wheat-Free">
+                    <label for="wheat">Wheat Free</label>  
+                </form>
             </div>
-    
-            <div class="advancedSearch hidden">
-                <div class="diet">
-                    <h3>Dietary Restrictions</h3>
-                    <form action="diet.php">
-                        <input type="radio" name="diet" id="lacto-ovo" value="387^Lacto-ovo vegetarian">
-                        <label for="lacto-ovo">Lacto-Ovo Vegetarian</label>  
-                        <input type="radio" name="diet" id="lacto" value="388^Lacto vegetarian">
-                        <label for="lacto">Lacto Vegetarian</label>   
-                        <input type="radio" name="diet" id="ovo" value="389^Ovo vegetarian">
-                        <label for="ovo">Ovo Vegetarian</label>  
-                        <input type="radio" name="diet" id="pescetarian" value="390^Pescetarian">
-                        <label for="pescetarian">Pescetarian</label>  
-                        <input type="radio" name="diet" id="vegan" value="386^Vegan">
-                        <label for="vegan">Vegan</label>  
-                        <input type="radio" name="diet" id="none" value="none" checked>
-                        <label for="none">None</label>  
-                    </form>
-                </div>
-    
+            
+            
+            <div class="advancedSearch hidden diet">
+                <h3>Dietary Restrictions</h3>
+                <form action="diet.php">
+                    <input type="radio" name="diet" id="lacto-ovo" value="387^Lacto-ovo vegetarian">
+                    <label for="lacto-ovo">Lacto-Ovo Vegetarian</label>  
+                    <input type="radio" name="diet" id="lacto" value="388^Lacto vegetarian">
+                    <label for="lacto">Lacto Vegetarian</label>   
+                    <input type="radio" name="diet" id="ovo" value="389^Ovo vegetarian">
+                    <label for="ovo">Ovo Vegetarian</label>  
+                    <input type="radio" name="diet" id="pescetarian" value="390^Pescetarian">
+                    <label for="pescetarian">Pescetarian</label>  
+                    <input type="radio" name="diet" id="vegan" value="386^Vegan">
+                    <label for="vegan">Vegan</label>  
+                    <input type="radio" name="diet" id="none" value="none" checked>
+                    <label for="none">None</label>  
+                </form>
             </div>
-
+            
         </section>
-
-        
-        
-
-        <!-- Search Results -->
         <ul>
             <!-- This is where the search items are printed -->
         </ul>
+        
+            
+            
+    
+        <!-- Search Results -->
         <div class="itemsRemaining"></div>
         <section>
             <div class="wrapper">
                 <div class="container" id="meals"></div>
             </div>
         </section>
-
-
-        <script src='https://code.jquery.com/jquery-3.2.1.min.js' integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4='crossorigin='anonymous'></script>
-        <script src="scripts.js"></script>
+    
+    
+            <script src='https://code.jquery.com/jquery-3.2.1.min.js' integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4='crossorigin='anonymous'></script>
+            <script src="scripts.js"></script>
+        </div>
     </main>
 </body>
 </html>

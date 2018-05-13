@@ -141,7 +141,7 @@ getRecipes.recipesByIngredients = function(ingredients,allAllergies,dietRest) {
             _app_id:'dfbe7dff',
             _app_key:'2bccb2cb18b4186352c9c884a2cff49a',
             q: ingredients,
-            maxResult: 8,
+            maxResult: 12,
             allowedAllergy: allAllergies,
             allowedDiet: dietRest,
             requirePictures:true
@@ -219,10 +219,12 @@ getRecipes.printInfo = function(meals) {
 
         if (oneMeal.mealImageUrl) {
             const $title = $('<h2>').text(oneMeal.title);
+            
+            const $ingredientTitle = $('<p>').html('Ingredients:');
             const $ingredients = $ul;
-            const $image = $('<img>').attr('src', oneMeal.mealImageUrl)
-            const $url = $('<a>').attr({'href':oneMeal.websiteUrl, 'target':'_blank'}).text('Read More')
-            const $mealContainer = $('<div>').append($title, $image, $ingredients, $url);
+            const $image = $('<img class="mealPhoto">').attr('src', oneMeal.mealImageUrl)
+            const $url = $('<a class="readMore">').attr({'href':oneMeal.websiteUrl, 'target':'_blank'}).text('Read More')
+            const $mealContainer = $('<div class="mealContainer">').append($title, $image, $ingredientTitle, $ingredients, $url);
             
             // console.log(oneMeal.websiteUrl)
             // console.log(oneMeal.websiteUrl)

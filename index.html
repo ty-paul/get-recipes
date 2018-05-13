@@ -11,7 +11,7 @@
 <body>
     
     <header>
-        <h1>nom.</h1>
+        <h1>nom<span>.</span></h1>
         <!-- Hero Video -->
         <video src="assets/foodVideo.mp4" autoplay muted loop id="heroVideo" class="fullscreen"></video>
         
@@ -19,12 +19,13 @@
 
         <!-- Form with Autocomplete -->
         <form autocomplete="off" action="/action_page.php" id="submitIngredient">
-            <div class="autocomplete" style="width:300px;">
-                <input id="myInput" type="text" name="myIngredients" placeholder="Enter Ingredient">
-            </div><!--
-        --><input type="submit" value="Search">
-            
+            <div class="autocomplete" >
+                <input id="myInput" class="myInput" type="text" name="myIngredients" placeholder="Enter Ingredient">
+            </div>
+            <input type="submit" value="Search" id="headerSearch">
         </form>
+
+         <!-- style="width:500px;" -->
         
     </header>
     <main class="hidden">

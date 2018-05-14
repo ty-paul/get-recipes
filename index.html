@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,22 +9,28 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700|Yeseva+One" rel="stylesheet">
     <link rel="stylesheet" href="styles/styles.css">
 </head>
+
 <body>
-    
+
     <header>
         <h1>nom<span>.</span></h1>
-        <!-- Hero Video -->
-        <video src="assets/foodVideo.mp4" autoplay muted loop id="heroVideo" class="fullscreen"></video>
-        
-        <!-- <img src="assets/qSifIgP.jpg" alt=""> -->
+        <div class="header-container">
+            <!-- Hero Video -->
+            <video src="assets/foodVideo.mp4" autoplay muted loop id="heroVideo" class="fullscreen"></video>
 
-        <!-- Form with Autocomplete -->
-        <form autocomplete="off" action="/action_page.php" id="submitIngredient">
-            <div class="autocomplete" >
-                <input id="myInput" class="myInput" type="text" name="myIngredients" placeholder="Enter Ingredient">
+            <!-- <img src="assets/qSifIgP.jpg" alt=""> -->
+
+            <!-- Form with Autocomplete -->
+            <form autocomplete="off" action="/action_page.php" id="submitIngredient">
+                <div class="autocomplete">
+                    <input id="myInput" class="myInput" type="text" name="myIngredients" placeholder="Enter Ingredient">
+                </div>
+                <input type="submit" value="Get Cooking" id="headerSearch">
+            </form>
+
+            <div class="button-container hidden">
+                <a class="header-button" href="#results">enjoy!</a>
             </div>
-            <input type="submit" value="Search" id="headerSearch">
-        </form>
 
          <!-- style="width:500px;" -->
         
@@ -124,4 +131,8 @@
         </div>
     </main>
 </body>
+
 </html>
+
+
+<!-- add footer -->

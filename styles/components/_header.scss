@@ -4,7 +4,8 @@ header {
     justify-content: flex-start;
     align-items: center;
     height: 100vh;
-    background: rgba(0,0,0,0.5)
+    background: rgba(0,0,0,0.2);
+    
 }
 
 #heroVideo { 
@@ -17,15 +18,14 @@ header {
 //   height: auto;
   z-index: -100;
   transform: translate(-50%, -50%);  
-
     // box-shadow: 12px 9px 13px rgba(255, 0, 255, 0.75);
     // filter: brightness(90%)
 }
 
-h1 {
+header h1 {
     color: #ffb917;
     // margin-top: 5%;
-    margin: 2% 0 22% 0;
+    margin: 2% 0 30% 0;
     span {
         color: $turquoise;
     }
@@ -40,30 +40,36 @@ h1 {
 
 #submitIngredient {
     display: flex;
-    justify-content: center;
-    width: 100%;
-    // display: none;
-    // z-index: 1;
-    // box-shadow: 5px 10px;
-    
 }
 
 #myInput {
-    // padding: 0 10%;
     width: 400px;
     background: $white;
     font-size: 18px;
-    // display: none;
-    // padding-right: 20%;
 }
 
 #headerSearch {
-    // margin-left: 20%;
-    width: 100px;
+    width: 150px;
     background: $turquoise;
     color: $white;
     font-size: 18px;
     padding: 0;
+}
+
+header .header-button {
+    color: white;
+    text-decoration: none;
+    background: red;
+    padding: 10px 25px;
+    font-size: 25px;
+    transition: $transition;
+    &:hover {
+        background: lighten($color: red, $amount: 10);
+    }
+}
+
+header .button-container {
+    margin-top: 5%;
 }
 
 // header p {

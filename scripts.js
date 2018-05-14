@@ -25,8 +25,8 @@ let dietRest = "none"
 
 
 //This function checks whether the allergy checkbox is checked. If it is, it applies the filter to the Ajax allowedAllergy function. When unchecked, the filter is removed
-getRecipes.allergy = function(allAllergies) {
-    $('.allergy input[type=checkbox]').change(function() {
+getRecipes.allergy = function (allAllergies) {
+    $('.allergy input[type=checkbox]').change(function () {
         if (this.checked) {
             allAllergies.push(($(this).val()))
             $('#meals').show()
@@ -35,7 +35,7 @@ getRecipes.allergy = function(allAllergies) {
         else {
             for (i = 0; i < allAllergies.length; i++) {
                 if (allAllergies[i] === $(this).val()) {
-                    allAllergies.splice(i,1)
+                    allAllergies.splice(i, 1)
                     if (allAllergies.length === 0 && allIngredients.length === 0 && dietRest === "none") {
                         $('#meals').hide()
                         $('.itemsRemaining').hide()
@@ -47,10 +47,19 @@ getRecipes.allergy = function(allAllergies) {
     });
 };
 
+//Scroll to the top of the main page when submitting a new ingredient
+getRecipes.scrollToTop = function () {
+    $('html,body').animate({
+        scrollTop: $("main").offset().top
+    },
+        'slow');
+
+}
+
 //This function works similar to the function above, but only returns one string rather than an arrary. This string is then used in the getValue function to search for dietary restrictions
 
-getRecipes.diet = function(dietRest) {
-    $('.diet input[type=radio]').change(function(){
+getRecipes.diet = function (dietRest) {
+    $('.diet input[type=radio]').change(function () {
         if (this.checked) {
             $('#meals').show()
             $('.itemsRemaining').show()
@@ -60,15 +69,19 @@ getRecipes.diet = function(dietRest) {
                 $('.itemsRemaining').hide()
             }
         }
-        
+
         getRecipes.recipesByIngredients(allIngredients, allAllergies, dietRest)
     });
 }
 
 //This is the main submit button for the website. When its clicked, information is received from API
-getRecipes.getValue = function(allIngredients, allAllergies, dietRest) {
-    $('input[type=submit]').on('click', function(e){
+getRecipes.getValue = function (allIngredients, allAllergies, dietRest) {
+    $('input[type=submit]').on('click', function (e) {
         e.preventDefault();
+        //When the form is submitted for the first time, it is moved from the header to the footer
+        $('header #submitIngredient').prependTo('.main-nav .wrapper');
+        //This replaces the form with a button that says "enjoy!"
+        $('header .button-container').removeClass('hidden');
         //The show methods are used to display the amount of recipes remaining. They are hidden again when there is nothing to display
         $('main').removeClass('hidden')
         $('#meals').show()
@@ -83,23 +96,25 @@ getRecipes.getValue = function(allIngredients, allAllergies, dietRest) {
             //reset form after submitting
             const form = document.getElementById('submitIngredient');
             form.reset();
-        }     
+        }
     });
     return allIngredients
 };
 
+
+
 //Remove item if user requests + Display nothing if array is empty
 
-getRecipes.removeItem = function(allIngredients, allAllergies){
+getRecipes.removeItem = function (allIngredients, allAllergies) {
     //selects the ul, but targets the li on click
-    $('ul').on('click', 'li', function(e){
+    $('ul').on('click', 'li', function (e) {
         e.stopPropagation();
         const removedItem = $(this).remove().text();
         // console.log(removedItem)
         for (let i = 0; i < allIngredients.length; i++) {
             //this searches for the ingredient that has to be removed
             if (allIngredients[i] === removedItem) {
-                allIngredients.splice(i,1)
+                allIngredients.splice(i, 1)
             }
         }
         if (allAllergies.length === 0 && allIngredients.length === 0 && dietRest === "none") {
@@ -117,14 +132,14 @@ getRecipes.removeItem = function(allIngredients, allAllergies){
 
 //This function toggles the Advanced Search option
 
-getRecipes.showAdvanced = function() {
-    $('.advancedButton').on('click', function(e){
-          e.preventDefault();
+getRecipes.showAdvanced = function () {
+    $('.advancedButton').on('click', function (e) {
+        e.preventDefault();
         $('.advancedSearch').toggleClass('hidden');
         //This next code toggles the text from (Advanced Settings) to (Close Settings)
         $(this).text($(this).text() == "Close Settings" ? "Advanced Settings" : "Close Settings");
 
-        });
+    });
 }
 
 
@@ -132,57 +147,57 @@ getRecipes.showAdvanced = function() {
 //display recipe title ingredients image and rating + url to actual website
 //users can sort by cooking time/rating/dietary restrictions
 
-getRecipes.recipesByIngredients = function(ingredients,allAllergies,dietRest) {
+getRecipes.recipesByIngredients = function (ingredients, allAllergies, dietRest) {
     $.ajax({
         url: 'http://api.yummly.com/v1/api/recipes',
         dataType: 'json',
         data: {
-            _app_id:'dfbe7dff',
-            _app_key:'2bccb2cb18b4186352c9c884a2cff49a',
+            _app_id: 'dfbe7dff',
+            _app_key: '2bccb2cb18b4186352c9c884a2cff49a',
             q: ingredients,
             maxResult: 12,
             allowedAllergy: allAllergies,
             allowedDiet: dietRest,
-            requirePictures:true
+            requirePictures: true
             //Add pages filter to display 12
         }
     })
-    //promise
-    .then((res) => {
-        // const mealsReturned = res.mealsReturned
-        // console.log(res)
-        const mealInfoArray = getRecipes.mealInfo(res);
-        // console.log(`meal info array: `, mealInfoArray);
-        getRecipes.printInfo(mealInfoArray);
-        getRecipes.remaining(res);
+        //promise
+        .then((res) => {
+            // const mealsReturned = res.mealsReturned
+            // console.log(res)
+            const mealInfoArray = getRecipes.mealInfo(res);
+            // console.log(`meal info array: `, mealInfoArray);
+            getRecipes.printInfo(mealInfoArray);
+            getRecipes.remaining(res);
         });
 };
 
 
 
 //using split function, split string(url) at the equals sign, only keep index 0(first part of array). This replaces default small image with large image
-getRecipes.trimImgUrl = function(imgUrl){
+getRecipes.trimImgUrl = function (imgUrl) {
     return imgUrl.split('=')[0]
     //splits string at = sign and you keep the index of [0] and discard [1]
 }
 
 
-getRecipes.mealInfo = function(apiResult){
+getRecipes.mealInfo = function (apiResult) {
     const foodItems = apiResult.matches;
     // console.log(foodItems);
-    
-//returns an array of objects, each object contains the data you need
+
+    //returns an array of objects, each object contains the data you need
     const foodDataArray = foodItems.map(item => {
         //returns only 5 ingredients required for meal
-        const ingredients = item.ingredients.slice(0,5);
+        const ingredients = item.ingredients.slice(0, 5);
         const title = item.recipeName;
         const uniqueTitle = item.id;
         let mealImageUrl = item.imageUrlsBySize['90'];
         mealImageUrl = getRecipes.trimImgUrl(mealImageUrl);
         const websiteUrl = "https://www.yummly.com/recipe/" + uniqueTitle;
-        const itemInfoObject = {title, uniqueTitle, ingredients, mealImageUrl, websiteUrl};
+        const itemInfoObject = { title, uniqueTitle, ingredients, mealImageUrl, websiteUrl };
         return itemInfoObject;
-        
+
     });//end of map
     return foodDataArray;
 }
@@ -190,42 +205,41 @@ getRecipes.mealInfo = function(apiResult){
 //Putting information pulled from API on the webpage including Img, title, ingredients, and rating
 
 //return the amount of search results
-getRecipes.remaining = function(foodInfo) {
+getRecipes.remaining = function (foodInfo) {
     const $results = $('<h2>').text(`Total Recipes Found: ${foodInfo.totalMatchCount}`)
     $('.itemsRemaining').html($results)
 
 }
 
 //This is how each ingredient is displayed on the page
-getRecipes.printInfo = function(meals) {
-    
+getRecipes.printInfo = function (meals) {
+
 
     //Empty the results and display new ones
     $('#meals').empty();
-    meals.forEach((oneMeal) =>{
+    meals.forEach((oneMeal) => {
         //create variable for ul which creates ul element in html
         const $ul = $('<ul>');
 
         //forEach to go through every item in the ingredients array
-        oneMeal.ingredients.forEach(function(ingredient){
+        oneMeal.ingredients.forEach(function (ingredient) {
 
             //create variable for li which creates li for each ingredient
             const $li = $('<li>').text(ingredient);
             //add each list item to ul
             $ul.append($li);
         })
-        
-        $('#meals').append($ul);
 
+        $('#meals').append($ul);
         if (oneMeal.mealImageUrl) {
             const $title = $('<h2>').text(oneMeal.title);
-            
+
             const $ingredientTitle = $('<p>').html('Ingredients:');
             const $ingredients = $ul;
             const $image = $('<img class="mealPhoto">').attr('src', oneMeal.mealImageUrl)
-            const $url = $('<a class="readMore">').attr({'href':oneMeal.websiteUrl, 'target':'_blank'}).text('Read More')
+            const $url = $('<a class="readMore">').attr({ 'href': oneMeal.websiteUrl, 'target': '_blank' }).text('Read More')
             const $mealContainer = $('<div class="mealContainer">').append($title, $image, $ingredientTitle, $ingredients, $url);
-            
+
             // console.log(oneMeal.websiteUrl)
             // console.log(oneMeal.websiteUrl)
             $('#meals').append($mealContainer);
@@ -237,7 +251,7 @@ getRecipes.printInfo = function(meals) {
 
 //Create an init method
 
-getRecipes.init = function() {
+getRecipes.init = function () {
     getRecipes.allergy(allAllergies)
     getRecipes.diet(dietRest)
     getRecipes.getValue(allIngredients);
@@ -254,7 +268,7 @@ $(function () {
 
     //Autocomplete Form Section
     function autocomplete(inp, arr) {
-        
+
         /*the autocomplete function takes two arguments,
         the text field element and an array of possible autocompleted values:*/
         var currentFocus;
@@ -273,7 +287,7 @@ $(function () {
             /*append the DIV element as a child of the autocomplete container:*/
             this.parentNode.appendChild(a);
             /*for each item in the array...*/
-            
+
             //Autocorrect only starts when user types 3 letters
             if (this.value.length > 2) {
                 for (i = 0; i < arr.length; i++) {
@@ -359,5 +373,46 @@ $(function () {
     autocomplete(document.getElementById("myInput"), ingredients);
 
 
-    
+
+
+    //SMOOTH SCROLLING
+    // Select all links with hashes
+    $('a[href*="#"]')
+        // Remove links that don't actually link to anything
+        .not('[href="#"]')
+        .not('[href="#0"]')
+        .click(function (event) {
+            // On-page links
+            if (
+                location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '')
+                &&
+                location.hostname == this.hostname
+            ) {
+                // Figure out element to scroll to
+                var target = $(this.hash);
+                target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                // Does a scroll target exist?
+                if (target.length) {
+                    // Only prevent default if animation is actually gonna happen
+                    event.preventDefault();
+                    $('html, body').animate({
+                        scrollTop: target.offset().top
+                    }, 1000, function () {
+                        // Callback after animation
+                        // Must change focus!
+                        var $target = $(target);
+                        $target.focus();
+                        if ($target.is(":focus")) { // Checking if the target was focused
+                            return false;
+                        } else {
+                            $target.attr('tabindex', '-1'); // Adding tabindex for elements not focusable
+                            $target.focus(); // Set focus again
+                        };
+                    });
+                }
+            }
+        });
+
+
+
 });//End of Document Ready

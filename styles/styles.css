@@ -156,7 +156,8 @@ header {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  height: 100vh; }
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.2); }
 
 #heroVideo {
   position: fixed;
@@ -167,23 +168,18 @@ header {
   z-index: -100;
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  opacity: 0.9; }
+  transform: translate(-50%, -50%); }
 
-h1 {
+header h1 {
   color: #ffb917;
-  margin: 2% 0 22% 0; }
-  h1 span {
+  margin: 2% 0 30% 0; }
+  header h1 span {
     color: #44bba4; }
 
 #submitIngredient {
   display: -webkit-box;
   display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  width: 100%; }
+  display: flex; }
 
 #myInput {
   width: 400px;
@@ -191,11 +187,26 @@ h1 {
   font-size: 18px; }
 
 #headerSearch {
-  width: 100px;
+  width: 150px;
   background: #44bba4;
   color: #fdfffc;
   font-size: 18px;
   padding: 0; }
+
+header .header-button {
+  color: white;
+  text-decoration: none;
+  background: red;
+  padding: 10px 25px;
+  font-size: 25px;
+  -webkit-transition: 0.4s ease-in-out all;
+  -o-transition: 0.4s ease-in-out all;
+  transition: 0.4s ease-in-out all; }
+  header .header-button:hover {
+    background: #ff3333; }
+
+header .button-container {
+  margin-top: 5%; }
 
 body {
   font: 16px Arial; }
@@ -245,15 +256,67 @@ input[type=submit] {
   background-color: DodgerBlue !important;
   color: #ffffff; }
 
+.wrapper {
+  width: 90%;
+  margin: 0 auto; }
+
 .hidden {
   display: none; }
 
 main {
   background: #fdfffc; }
 
-.wrapper {
-  width: 90%;
+main .main-nav {
+  background: #124e78;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0px; }
+
+main .main-nav .wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
   margin: 0 auto; }
+  main .main-nav .wrapper .logo {
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    text-align: right; }
+
+h3.logo {
+  color: red;
+  font-family: "Yeseva One", cursive;
+  display: inline-block;
+  font-size: 25px;
+  margin: 0; }
+
+.searchSettings {
+  margin: 0 auto;
+  background: #124e78; }
+  .searchSettings h3 {
+    margin: 0;
+    padding: 10px 0; }
+
+main input[type=submit] {
+  background: red; }
+  main input[type=submit]:hover {
+    background: #ff3333; }
+
+.advancedButton {
+  padding: 11px 25px; }
+
+.hidden {
+  display: none; }
 
 #meals {
   display: -webkit-box;

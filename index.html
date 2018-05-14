@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,90 +9,105 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700|Yeseva+One" rel="stylesheet">
     <link rel="stylesheet" href="styles/styles.css">
 </head>
+
 <body>
-    
+
     <header>
         <h1>nom<span>.</span></h1>
-        <!-- Hero Video -->
-        <video src="assets/foodVideo.mp4" autoplay muted loop id="heroVideo" class="fullscreen"></video>
-        
-        <!-- <img src="assets/qSifIgP.jpg" alt=""> -->
+        <div class="header-container">
+            <!-- Hero Video -->
+            <video src="assets/foodVideo.mp4" autoplay muted loop id="heroVideo" class="fullscreen"></video>
 
-        <!-- Form with Autocomplete -->
-        <form autocomplete="off" action="/action_page.php" id="submitIngredient">
-            <div class="autocomplete" >
-                <input id="myInput" class="myInput" type="text" name="myIngredients" placeholder="Enter Ingredient">
+            <!-- <img src="assets/qSifIgP.jpg" alt=""> -->
+
+            <!-- Form with Autocomplete -->
+            <form autocomplete="off" action="/action_page.php" id="submitIngredient">
+                <div class="autocomplete">
+                    <input id="myInput" class="myInput" type="text" name="myIngredients" placeholder="Enter Ingredient">
+                </div>
+                <input type="submit" value="Get Cooking" id="headerSearch">
+            </form>
+
+            <div class="button-container hidden">
+                <a class="header-button" href="#results">enjoy!</a>
             </div>
-            <input type="submit" value="Search" id="headerSearch">
-        </form>
 
-         <!-- style="width:500px;" -->
-        
+        </div>
     </header>
-    <main class="hidden">
+
+    <main id="results" class="hidden">
+        <div class="main-nav">
+            <div class="wrapper">
+                <a href="#" class="advancedButton">Advanced Settings</a>
+
+                <h3 class="logo">sunday pantry.</h3>
+            </div>
+
+        </div>
         <section class="searchSettings">
-            <a href="#" class="advancedButton">Advanced Settings</a>
-            <div class="advancedSearch hidden">
-                <div class="allergy">
+            <div class="wrapper">
+                <div class="advancedSearch hidden allergy">
                     <h3>Allergies</h3>
                     <form action="allergy.php">
                         <input type="checkbox" name="allergy" id="dairy" value="396^Dairy-Free">
-                        <label for="dairy">Dairy Free</label>   
+                        <label for="dairy">Dairy Free</label>
                         <input type="checkbox" name="allergy" id="gluten" value="393^Gluten-Free">
-                        <label for="gluten">Gluten Free</label>  
+                        <label for="gluten">Gluten Free</label>
                         <input type="checkbox" name="allergy" id="peanut" value="394^Peanut-Free">
-                        <label for="peanut">Peanut Free</label>  
+                        <label for="peanut">Peanut Free</label>
                         <input type="checkbox" name="allergy" id="tree" value="395^Tree Nut-Free">
-                        <label for="tree">Tree Nut Free</label>  
+                        <label for="tree">Tree Nut Free</label>
                         <input type="checkbox" name="allergy" id="seafood" value="398^Seafood-Free">
-                        <label for="seafood">Seafood Free</label>  
+                        <label for="seafood">Seafood Free</label>
                         <input type="checkbox" name="allergy" id="wheat" value="392^Wheat-Free">
-                        <label for="wheat">Wheat Free</label>  
+                        <label for="wheat">Wheat Free</label>
                     </form>
                 </div>
-    
-            </div>
-    
-            <div class="advancedSearch hidden">
-                <div class="diet">
+
+
+                <div class="advancedSearch hidden diet">
                     <h3>Dietary Restrictions</h3>
                     <form action="diet.php">
                         <input type="radio" name="diet" id="lacto-ovo" value="387^Lacto-ovo vegetarian">
-                        <label for="lacto-ovo">Lacto-Ovo Vegetarian</label>  
+                        <label for="lacto-ovo">Lacto-Ovo Vegetarian</label>
                         <input type="radio" name="diet" id="lacto" value="388^Lacto vegetarian">
-                        <label for="lacto">Lacto Vegetarian</label>   
+                        <label for="lacto">Lacto Vegetarian</label>
                         <input type="radio" name="diet" id="ovo" value="389^Ovo vegetarian">
-                        <label for="ovo">Ovo Vegetarian</label>  
+                        <label for="ovo">Ovo Vegetarian</label>
                         <input type="radio" name="diet" id="pescetarian" value="390^Pescetarian">
-                        <label for="pescetarian">Pescetarian</label>  
+                        <label for="pescetarian">Pescetarian</label>
                         <input type="radio" name="diet" id="vegan" value="386^Vegan">
-                        <label for="vegan">Vegan</label>  
+                        <label for="vegan">Vegan</label>
                         <input type="radio" name="diet" id="none" value="none" checked>
-                        <label for="none">None</label>  
+                        <label for="none">None</label>
                     </form>
                 </div>
-    
             </div>
-
         </section>
 
-        
-        
+        <div class="wrapper">
+            <ul>
+                <!-- This is where the search items are printed -->
+            </ul>
 
-        <!-- Search Results -->
-        <ul>
-            <!-- This is where the search items are printed -->
-        </ul>
-        <div class="itemsRemaining"></div>
-        <section>
-            <div class="wrapper">
+
+
+
+            <!-- Search Results -->
+            <div class="itemsRemaining"></div>
+            <section>
                 <div class="container" id="meals"></div>
-            </div>
-        </section>
+            </section>
+        </div>
 
 
-        <script src='https://code.jquery.com/jquery-3.2.1.min.js' integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4='crossorigin='anonymous'></script>
+        <script src='https://code.jquery.com/jquery-3.2.1.min.js' integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4='
+            crossorigin='anonymous'></script>
         <script src="scripts.js"></script>
     </main>
 </body>
+
 </html>
+
+
+<!-- add footer -->

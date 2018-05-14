@@ -1,3 +1,8 @@
+.wrapper {
+    width: 90%;
+    margin: 0 auto;
+}
+
 .hidden {
     display:none;
 }   
@@ -6,10 +11,58 @@ main {
     background: $white;
 }
 
-.wrapper {
-    width: 90%;
-    margin: 0 auto;
+main .main-nav {
+    background: $blue;
+    position: sticky;
+    top:0px;
 }
+
+main .main-nav .wrapper {
+    display:flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: center;
+    margin:0 auto;
+    .logo {
+        flex-grow: 1;
+        text-align:right;
+
+    }
+}
+
+h3.logo {
+    color: red;
+    font-family: $primaryFont;
+    display: inline-block;
+    font-size: 25px;
+    margin: 0;
+}
+
+.searchSettings {
+   margin: 0 auto;
+   background: $blue;
+   h3 {
+       margin:0;
+       padding: 10px 0;
+   }
+}
+
+main input[type = submit] {
+    background:red;
+    &:hover {
+        background: lighten($color: red, $amount: 10);
+    }
+}
+
+.advancedButton {
+    padding: 11px 25px;
+    // background: $red;
+}
+
+.hidden {
+    display:none;
+}  
+
 
 #meals { 
     display: flex;

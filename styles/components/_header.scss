@@ -14,19 +14,15 @@ header {
   left: 50%;
   min-width: 100%;
   min-height: 100%;
-//   width: auto;
-//   height: auto;
   z-index: -100;
   transform: translate(-50%, -50%);  
-//   opacity: 0.9;
-    // box-shadow: 12px 9px 13px rgba(255, 0, 255, 0.75);
-    // filter: brightness(90%)
 }
 
 header h1 {
     color: #ffb917;
-    // margin-top: 5%;
-    margin: 2% 0 30% 0;
+    // margin: 2% 0 30% 0;
+    margin-top: 2%;
+    margin-bottom: 60vh;
     span {
         color: $turquoise;
     }
@@ -38,12 +34,14 @@ header h1 {
 
 #myInput {
     width: 400px;
+    height: 50px;
     background: $white;
     font-size: 18px;
 }
 
 #headerSearch {
     width: 150px;
+    height: 50px;
     background: $turquoise;
     color: $white;
     font-size: 18px;
@@ -53,18 +51,49 @@ header h1 {
 header .header-button {
     color: white;
     text-decoration: none;
-    background: red;
+    background: $yellow;
     padding: 10px 25px;
     font-size: 25px;
     transition: $transition;
     &:hover {
-        background: lighten($color: red, $amount: 10);
+        background: $turquoise;
     }
 }
 
 header .button-container {
     margin-top: 5%;
 }
+
+
+// RESPONSIVE DESIGN
+
+
+@media only screen and (max-width: 900px) {
+    header h1 {
+        font-size: 100px;
+        margin-bottom: 45vh;
+    }
+    #submitIngredient {
+    flex-direction: column;
+    align-items: center;
+    }
+
+    #myInput {
+    width: 350px;
+    background: $white;
+    font-size: 16px;
+    margin-bottom: 3%;
+}
+
+    #headerSearch {
+        width: 150px;
+        background: $turquoise;
+        color: $white;
+        font-size: 16px;
+        padding: 0;
+    }
+}
+
 
 
 

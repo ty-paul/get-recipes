@@ -232,7 +232,7 @@ getRecipes.printInfo = function (meals) {
 
         $('#meals').append($ul);
         if (oneMeal.mealImageUrl) {
-            const $title = $('<h2>').text(oneMeal.title);
+            const $title = $('<div class="recipeHeading">').text(oneMeal.title);
 
             const $ingredientTitle = $('<p>').html('Ingredients:');
             const $ingredients = $ul;

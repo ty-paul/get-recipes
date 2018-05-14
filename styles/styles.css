@@ -135,16 +135,12 @@ legend, button::-moz-focus-inner, input::-moz-focus-inner {
 img {
   max-width: 100%; }
 
-.wrapper {
-  width: 70%; }
-
 body {
   font-family: "Roboto", sans-serif; }
 
 h1 {
   font-family: "Yeseva One", cursive;
-  font-size: 150px;
-  margin: 0; }
+  font-size: 150px; }
 
 header {
   display: -webkit-box;
@@ -231,13 +227,8 @@ input[type=text] {
   width: 100%; }
 
 input[type=submit] {
-  background-color: #124e78;
-  color: #fff;
-  -webkit-transition: 0.4s ease-in-out all;
-  -o-transition: 0.4s ease-in-out all;
-  transition: 0.4s ease-in-out all; }
-  input[type=submit]:hover {
-    background: #196ba4; }
+  background-color: DodgerBlue;
+  color: #fff; }
 
 .autocomplete-items {
   position: absolute;

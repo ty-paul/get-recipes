@@ -34,10 +34,14 @@ main .main-nav .wrapper {
 
 h3.logo {
    color: $yellow;
+   
    font-family: $primaryFont;
    display: inline-block;
    font-size: 25px;
    margin: 0;
+   span {
+       color: $turquoise;
+   }
 }
 
 .searchSettings {
@@ -49,12 +53,6 @@ h3.logo {
   }
 }
 
-main input[type = submit] {
-   background:red;
-   &:hover {
-       background: lighten($color: red, $amount: 10);
-   }
-}
 
 .advancedButton {
    padding: 11px 25px;
@@ -82,10 +80,11 @@ main input[type = submit] {
    z-index: 1;
    .recipeHeading {
        text-align: center;
-       height: 15%;
+       padding:20px 0;
        color: $turquoise;
        font-size: 20px;
        font-weight: bold;
+       height: 15%;
    }
    img {
        width: 100%;
@@ -133,6 +132,89 @@ main input[type = submit] {
    color: darken($grey, 30%);
 
 }
+//Styling advanced section
+
+form input[type=checkbox],
+form input[type=radio] {
+    display:none;
+}
+
+.advancedSearch.allergy{
+    padding-top: 5px;
+}
+
+.diet form {
+    padding-bottom: 30px;
+}
+.advancedSearch h3 {
+    color: $white;
+    margin: 10px 0;
+}
+form label {
+    background: $turquoise;
+    color: white;
+    padding:5px 5px;
+    cursor: pointer;
+    transition: $transition;
+    margin-right:10px;
+    &:hover {
+        background: lighten($color: $turquoise, $amount: 15)
+    }
+}
+
+label.active {
+    background: $yellow;
+    transition: $transition;
+    &:hover {
+        background: lighten($color: $yellow, $amount: 15)
+    }
+}
+
+.advancedButton {
+    background: $yellow;
+    text-decoration: none;
+    color: white;
+    font-size:18px;
+    padding: 14.5px 15px;
+    transition: $transition;
+    &:hover {
+        background: lighten($color: $yellow, $amount: 15);
+    }
+    
+}
+
+.itemsRemaining {
+    clear:both;
+}
+
+main ul.userIngredients {
+    list-style-type: none;
+    padding-left:0;
+    padding: 5px 0;
+    li {
+        text-transform: capitalize;
+        float:left;
+        padding: 10px 15px;
+        background: $yellow;
+        color: $white;
+        margin-right: 10px;
+        cursor: pointer;
+        transition:$transition;
+        position:relative;
+        &:hover {
+            background: #a20c0c;
+            &:after{
+                content: "x";
+                font-size: 10px;
+                position:absolute;
+                top:2px;
+                right:2px;
+            }
+        }
+    }
+
+}
+
 
 
 
@@ -144,6 +226,21 @@ main input[type = submit] {
         width: 47%;
     }
 
+}
+@media only screen and (max-width: 930px){
+    main .main-nav .wrapper {
+        flex-direction: column;
+    }
+    .advancedButton {
+        width: 190px;
+    }
+    .logo {
+        padding: 20px 0;
+    }
+    main #headerSearch {
+        display:none;
+    }
+    
 }
 
 @media only screen and (max-width: 825px) {

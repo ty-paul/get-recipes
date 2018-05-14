@@ -27,10 +27,12 @@ let dietRest = "none"
 //This function checks whether the allergy checkbox is checked. If it is, it applies the filter to the Ajax allowedAllergy function. When unchecked, the filter is removed
 getRecipes.allergy = function (allAllergies) {
     $('.allergy input[type=checkbox]').change(function () {
+        $(this).next().toggleClass('active');
         if (this.checked) {
             allAllergies.push(($(this).val()))
             $('#meals').show()
             $('.itemsRemaining').show()
+            //this adds the class of active to a label, changing the color to show that it is active
         }
         else {
             for (i = 0; i < allAllergies.length; i++) {
@@ -60,7 +62,10 @@ getRecipes.scrollToTop = function () {
 
 getRecipes.diet = function (dietRest) {
     $('.diet input[type=radio]').change(function () {
+        $('.diet label').removeClass('active');
         if (this.checked) {
+            //this adds the class of active to a label, changing the color to show that it is active
+            $(this).next().toggleClass('active');
             $('#meals').show()
             $('.itemsRemaining').show()
             dietRest = $(this).val()

@@ -17,12 +17,8 @@ input[type=text] {
   width: 100%;
 }
 input[type=submit] {
-  background-color: $blue;
+  background-color: DodgerBlue;
   color: #fff;
-  transition: $transition;
-  &:hover {
-    background: lighten($color: $blue, $amount: 10);
-  }
 }
 .autocomplete-items {
   position: absolute;

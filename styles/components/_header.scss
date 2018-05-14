@@ -71,6 +71,12 @@ header .button-container {
 
 
 @media only screen and (max-width: 900px) {
+    header {
+        background: darken($grey, 5%);
+    }
+    #heroVideo { 
+        display: none;
+    }
     header h1 {
         font-size: 100px;
         margin-bottom: 45vh;

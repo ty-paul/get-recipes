@@ -212,10 +212,10 @@ header .button-container {
   margin-top: 5%; }
 
 @media only screen and (max-width: 900px) {
-  header {
-    background: #e9ecef; }
   #heroVideo {
     display: none; }
+  header {
+    background: #e9ecef; }
   header h1 {
     font-size: 100px;
     margin-bottom: 45vh; }
@@ -543,5 +543,7 @@ main ul.userIngredients {
 @media only screen and (max-width: 825px) {
   .mealContainer {
     width: 90%;
+    margin: 0 auto;
+    margin-bottom: 10%;
     padding: 2% 2% 20% 2%;
     background: #e9ecef; } }

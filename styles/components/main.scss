@@ -277,6 +277,8 @@ main ul.userIngredients {
 @media only screen and (max-width: 825px) {
     .mealContainer {
         width: 90%;
+        margin: 0 auto;
+        margin-bottom: 10%;
         padding: 2% 2% 20% 2%;
         background: darken($grey, 5%);
         
